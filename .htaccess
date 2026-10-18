@@ -1,6 +1,9 @@
 Options -MultiViews
 <IfModule mod_rewrite.c>
 RewriteEngine On
+# Keep the homepage at the root URL.
+RewriteCond %{THE_REQUEST} \\s/+index\\.html(?:[\\s?]) [NC]
+RewriteRule ^index\\.html$ / [R=301,L,NE]
 # Redirect legacy .html links to canonical extensionless URLs.
 RewriteCond %{THE_REQUEST} \s/+(.+?)\.html(?:[\s?]) [NC]
 RewriteRule ^(.+)\.html$ /$1 [R=301,L,NE]
