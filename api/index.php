@@ -95,16 +95,36 @@ if ($action==='save_settings' && $method==='POST') {
 }
 if ($action==='upload_logo' && $method==='POST') {
  csrf();if (($user['role']??'')!=='super_admin') respond(['error'=>'Super Admin required'],403);
- if (!isset($_FILES['logo'])||$_FILES['logo']['error']!==UPLOAD_ERR_OK) respond(['error'=>'Upload failed'],400);
- $file=$_FILES['logo'];if ($file['size']>2097152||$file['size']<1) respond(['error'=>'Maximum logo size 2 MB'],400);
- $mime=(new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
- $ext=['image/png'=>'png','image/jpeg'=>'jpg','image/webp'=>'webp'][$mime]??null;
- if (!$ext||!getimagesize($file['tmp_name'])) respond(['error'=>'Use PNG, JPG or WebP'],400);
- $dir=dirname(__DIR__).'/uploads/logos';if (!is_dir($dir)&&!mkdir($dir,0755,true)) respond(['error'=>'Upload directory unavailable'],500);
- $name='dic-logo-'.bin2hex(random_bytes(12)).'.'.$ext;
- if (!move_uploaded_file($file['tmp_name'],$dir.'/'.$name)) respond(['error'=>'Could not save logo'],500);
- $url='https://demraidealcollege.edu.bd/uploads/logos/'.$name;
- respond(['ok'=>true,'url'=>$url]);
+ try {
+  if (!isset($_FILES['logo'])) {
+   $max=ini_get('post_max_size');
+   respond(['error'=>'No logo received. Check PHP upload_max_filesize and post_max_size (current post_max_size: '.$max.').'],400);
+  }
+  $file=$_FILES['logo'];
+  if (!is_array($file)) respond(['error'=>'Invalid upload'],400);
+  $err=(int)($file['error']??UPLOAD_ERR_NO_FILE);
+  if ($err!==UPLOAD_ERR_OK) {
+   $errors=[UPLOAD_ERR_INI_SIZE=>'File exceeds server upload limit',UPLOAD_ERR_FORM_SIZE=>'File exceeds form upload limit',UPLOAD_ERR_PARTIAL=>'File was only partially uploaded',UPLOAD_ERR_NO_FILE=>'Please select a logo',UPLOAD_ERR_NO_TMP_DIR=>'Server temporary folder missing',UPLOAD_ERR_CANT_WRITE=>'Server cannot write uploaded file',UPLOAD_ERR_EXTENSION=>'Server blocked the upload'];
+   respond(['error'=>$errors[$err]??'Upload failed'],400);
+  }
+  if (($file['size']??0)>2097152||($file['size']??0)<1) respond(['error'=>'Logo must be under 2 MB'],400);
+  $tmp=(string)($file['tmp_name']??'');
+  if (!$tmp||!is_uploaded_file($tmp)) respond(['error'=>'Invalid uploaded file'],400);
+  $info=@getimagesize($tmp);
+  if (!$info) respond(['error'=>'Please upload a valid image'],400);
+  $mime=(string)($info['mime']??'');
+  $ext=['image/png'=>'png','image/jpeg'=>'jpg','image/webp'=>'webp'][$mime]??null;
+  if (!$ext) respond(['error'=>'Only PNG, JPG or WebP images are allowed'],400);
+  $dir=dirname(__DIR__).'/uploads/logos';
+  if (!is_dir($dir)&&!@mkdir($dir,0755,true)&&!is_dir($dir)) respond(['error'=>'Unable to create uploads/logos. Check folder permissions.'],500);
+  if (!is_writable($dir)) respond(['error'=>'uploads/logos folder is not writable'],500);
+  $name='dic-logo-'.bin2hex(random_bytes(12)).'.'.$ext;
+  if (!@move_uploaded_file($tmp,$dir.'/'.$name)) respond(['error'=>'Could not save logo. Check server permissions.'],500);
+  respond(['ok'=>true,'url'=>'https://demraidealcollege.edu.bd/uploads/logos/'.$name]);
+ } catch (Throwable $e) {
+  error_log('DIC logo upload error: '.$e->getMessage());
+  respond(['error'=>'Logo upload failed on server. Check PHP error log.'],500);
+ }
 }
 if ($action==='delete' && $method==='POST') {
  csrf();$v=input();$id=filter_var($v['id']??null,FILTER_VALIDATE_INT,['options'=>['min_range'=>1]]);
