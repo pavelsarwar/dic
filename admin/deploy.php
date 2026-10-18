@@ -25,6 +25,7 @@ $report=[];
 $error='';
 $success=false;
 if ($_SERVER['REQUEST_METHOD']==='POST') {
+    $_SERVER['HTTP_X_CSRF_TOKEN']=(string)($_POST['csrf']??'');
     csrf();
     try {
         if (!is_dir($source) || !is_dir($destination)) {
