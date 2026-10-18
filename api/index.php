@@ -73,7 +73,17 @@ if ($action==='save_settings' && $method==='POST') {
  $v=input();$key=(string)($v['key']??'');
  if (!in_array($key,['identity','contact','navigation','homepage'],true)) respond(['error'=>'Invalid setting'],400);
  $value=$v['value']??null;if (!is_array($value)) respond(['error'=>'Invalid setting value'],400);
- if ($key==='identity') {
+ if ($key==='navigation') {
+  if(count($value)>40) respond(['error'=>'Too many menu items'],400);
+  $links=[];foreach($value as $link){
+   if(!is_array($link)) continue;
+   $label=trim((string)($link['label']??''));
+   $url=trim((string)($link['url']??''));
+   $group=trim((string)($link['group']??''));
+   if($label===''||mb_strlen($label)>70||mb_strlen($group)>70||!preg_match('~^/(?:[a-z0-9-]+)?$~i',$url))respond(['error'=>'Invalid menu item or URL'],400);
+   $links[]=['label'=>$label,'url'=>$url,'group'=>$group,'active'=>!empty($link['active'])];
+  }$value=$links;
+ } elseif ($key==='identity') {
   $name=trim((string)($value['name']??''));$logo=trim((string)($value['logo_url']??''));
   if ($name===''||mb_strlen($name)>150) respond(['error'=>'Invalid college name'],400);
   if ($logo!=='' && (!filter_var($logo,FILTER_VALIDATE_URL)||parse_url($logo,PHP_URL_SCHEME)!=='https')) respond(['error'=>'HTTPS logo URL required'],400);
@@ -98,6 +108,26 @@ if ($action==='save_settings' && $method==='POST') {
  $q=$db->prepare('INSERT INTO site_settings(setting_key,value_json) VALUES(?,?) ON DUPLICATE KEY UPDATE value_json=VALUES(value_json)');
  $q->execute([$key,json_encode($value,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)]);
  respond(['ok'=>true]);
+}
+if ($action==='upload_image' && $method==='POST') {
+ csrf();
+ try {
+  if(!isset($_FILES['image'])) respond(['error'=>'No image received. Check post_max_size.'],400);
+  $file=$_FILES['image'];$err=(int)($file['error']??UPLOAD_ERR_NO_FILE);
+  if($err!==UPLOAD_ERR_OK) respond(['error'=>'Upload error '.$err.'; check PHP upload limits'],400);
+  if(($file['size']??0)<1||$file['size']>5242880)respond(['error'=>'Image must be under 5 MB'],400);
+  $tmp=$file['tmp_name']??'';
+  if(!is_uploaded_file($tmp))respond(['error'=>'Invalid uploaded file'],400);
+  $info=@getimagesize($tmp);
+  $ext=['image/jpeg'=>'jpg','image/png'=>'png','image/webp'=>'webp'][$info['mime']??'']??null;
+  if(!$ext)respond(['error'=>'Use JPG, PNG or WebP'],400);
+  $dir=dirname(__DIR__).'/uploads/media';
+  if(!is_dir($dir)&&!@mkdir($dir,0755,true)&&!is_dir($dir))respond(['error'=>'Media folder cannot be created'],500);
+  if(!is_writable($dir))respond(['error'=>'Media folder is not writable'],500);
+  $name=bin2hex(random_bytes(16)).'.'.$ext;
+  if(!@move_uploaded_file($tmp,$dir.'/'.$name))respond(['error'=>'Image could not be saved'],500);
+  respond(['ok'=>true,'url'=>'https://demraidealcollege.edu.bd/uploads/media/'.$name]);
+ }catch(Throwable $e){error_log('DIC media upload: '.$e->getMessage());respond(['error'=>'Media upload server error'],500);}
 }
 if ($action==='upload_logo' && $method==='POST') {
  csrf();if (($user['role']??'')!=='super_admin') respond(['error'=>'Super Admin required'],403);
