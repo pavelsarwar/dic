@@ -14,6 +14,27 @@
   const header=document.querySelector('[data-cms-header]'),footer=document.querySelector('[data-cms-footer]');
   if(!header&&!footer)return;
   let s={};try{s=await settings()}catch(e){console.warn(e)}
+  // Homepage copy is managed in the CMS, never injected as HTML.
+  if(document.querySelector('[data-home-key]')){
+   const homepage=s.homepage||{};
+   document.querySelectorAll('[data-home-key]').forEach(el=>{const value=homepage[el.dataset.homeKey];if(typeof value==='string'&&value.trim())el.textContent=value});
+   // Replace demonstration cards with approved published records when available.
+   Promise.allSettled([publicList('notice'),publicList('news'),publicList('slide')]).then(results=>{
+    const notices=results[0].status==='fulfilled'?results[0].value:[];
+    const news=results[1].status==='fulfilled'?results[1].value:[];
+    const slides=results[2].status==='fulfilled'?results[2].value:[];
+    const panel=document.querySelector('#notice .panel');
+    if(panel&&notices.length){
+     panel.replaceChildren();
+     notices.slice(0,5).forEach(n=>{const row=document.createElement('div');row.className='notice';const title=document.createElement('strong');title.textContent=n.title;row.append(title);panel.append(row)});
+     const more=document.createElement('a');more.href='/notices';more.textContent='সব নোটিশ দেখুন →';more.style.display='block';more.style.marginTop='16px';panel.append(more);
+    }
+    const cards=document.querySelector('#news .newsCards');
+    if(cards&&news.length){cards.replaceChildren();news.slice(0,3).forEach(n=>{const article=document.createElement('article');article.className='newsCard';const inner=document.createElement('div');inner.className='inner';const title=document.createElement('h3');title.textContent=n.title;const body=document.createElement('p');body.textContent=n.body||'';inner.append(title,body);article.append(inner);cards.append(article)})}
+    const banners=document.querySelectorAll('.heroSlider .slide');
+    slides.slice(0,banners.length).forEach((slide,i)=>{const h=banners[i].querySelector('h1'),p=banners[i].querySelector('p');if(h&&slide.title)h.textContent=slide.title;if(p&&slide.body)p.textContent=slide.body;if(slide.image_url&&safeUrl(slide.image_url))banners[i].style.backgroundImage='url("'+safeUrl(slide.image_url).replace(/["\\]/g,'')+'")'});
+   });
+  }
   const brand=escape(s.identity?.name||'ডেমরা আইডিয়াল কলেজ');
   const logo=s.identity?.logo_url?safeUrl(s.identity.logo_url):'';
   // One navigation model for every page; new HTML pages automatically use clean URLs.
