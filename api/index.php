@@ -71,7 +71,7 @@ if ($action==='save' && $method==='POST') {
 if ($action==='save_settings' && $method==='POST') {
  csrf();if (($user['role']??'')!=='super_admin') respond(['error'=>'Super Admin required'],403);
  $v=input();$key=(string)($v['key']??'');
- if (!in_array($key,['identity','contact','navigation'],true)) respond(['error'=>'Invalid setting'],400);
+ if (!in_array($key,['identity','contact','navigation','homepage'],true)) respond(['error'=>'Invalid setting'],400);
  $value=$v['value']??null;if (!is_array($value)) respond(['error'=>'Invalid setting value'],400);
  if ($key==='identity') {
   $name=trim((string)($value['name']??''));$logo=trim((string)($value['logo_url']??''));
@@ -80,6 +80,12 @@ if ($action==='save_settings' && $method==='POST') {
   $value=['name'=>$name,'logo_url'=>$logo];
  } elseif ($key==='contact') {
   $value=['address'=>mb_substr(trim((string)($value['address']??'')),0,300),'email'=>mb_substr(trim((string)($value['email']??'')),0,190),'phone'=>mb_substr(trim((string)($value['phone']??'')),0,80)];
+ } elseif ($key==='homepage') {
+  if (count($value)>40) respond(['error'=>'Too many homepage fields'],400);
+  $clean=[];foreach($value as $field=>$text){
+   if (!is_string($field)||!preg_match('/^[a-z][a-z0-9_]{0,49}$/',$field)||!is_string($text)||mb_strlen($text)>1500) respond(['error'=>'Invalid homepage field'],400);
+   $clean[$field]=trim($text);
+  }$value=$clean;
  } else {
   if (count($value)>30) respond(['error'=>'Too many links'],400);
   $links=[];foreach($value as $link){
