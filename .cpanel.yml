@@ -1,0 +1,13 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/demraedubd/public_html/
+    - /bin/mkdir -p "$DEPLOYPATH"
+    - /bin/mkdir -p "$DEPLOYPATH/assets"
+    - /bin/mkdir -p "$DEPLOYPATH/admin"
+    - /bin/cp index.html "$DEPLOYPATH/index.html"
+    - /bin/cp faculty.html "$DEPLOYPATH/faculty.html"
+    - /bin/cp assets/shared.css "$DEPLOYPATH/assets/shared.css"
+    - /bin/cp assets/cms.js "$DEPLOYPATH/assets/cms.js"
+    - /bin/cp assets/cms-config.js "$DEPLOYPATH/assets/cms-config.js"
+    - /bin/cp admin/index.html "$DEPLOYPATH/admin/index.html"
