@@ -31,3 +31,10 @@
  .cms-submenu a{padding:9px 14px}
 }
 @media(max-width:420px){.cms-brand{font-size:16px}.cms-brand small{font-size:11px}.cms-shell{padding:0 14px}}
+
+/* Refined dropdown indicator */
+.cms-chevron{width:15px;height:15px;flex:none;opacity:.68;transition:transform .2s ease,opacity .2s ease}
+.cms-drop-trigger:hover .cms-chevron,.cms-dropdown.expanded .cms-chevron{opacity:1}
+.cms-dropdown.expanded .cms-chevron{transform:rotate(180deg)}
+@media(hover:hover) and (min-width:1081px){.cms-dropdown:hover .cms-chevron{transform:rotate(180deg);opacity:1}}
+@media(prefers-reduced-motion:reduce){.cms-chevron{transition:none}}
