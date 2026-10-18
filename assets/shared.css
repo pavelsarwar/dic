@@ -38,3 +38,21 @@
 .cms-dropdown.expanded .cms-chevron{transform:rotate(180deg)}
 @media(hover:hover) and (min-width:1081px){.cms-dropdown:hover .cms-chevron{transform:rotate(180deg);opacity:1}}
 @media(prefers-reduced-motion:reduce){.cms-chevron{transition:none}}
+
+/* Logo-first header: legible institutional mark, responsive without distortion */
+.cms-header .cms-shell{min-height:104px}
+.cms-brand{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-width:100px;padding:7px 0}
+.cms-brand img{display:block;width:auto;height:auto;max-width:210px;max-height:88px;object-fit:contain;object-position:left center}
+.cms-brand .cms-seal{width:74px;height:74px;font-size:27px}
+@media(max-width:1080px){
+ .cms-header .cms-shell{min-height:90px}
+ .cms-brand{min-width:82px;padding:6px 0}
+ .cms-brand img{max-width:175px;max-height:74px}
+ .cms-brand .cms-seal{width:62px;height:62px}
+}
+@media(max-width:480px){
+ .cms-header .cms-shell{min-height:82px}
+ .cms-brand{min-width:70px}
+ .cms-brand img{max-width:min(55vw,155px);max-height:68px}
+ .cms-brand .cms-seal{width:56px;height:56px}
+}
