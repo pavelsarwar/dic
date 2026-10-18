@@ -52,6 +52,6 @@ function csrf(): void {
  $origin=$_SERVER['HTTP_ORIGIN']??'';
  if ($origin) {
   $parts=parse_url($origin);
-  if (!$parts || ($parts['host']??'')!==($_SERVER['HTTP_HOST']??'') || ($parts['scheme']??'')!=='https') respond(['error'=>'Invalid origin'],403);
+  if (!$parts || !in_array(strtolower((string)($parts['host']??'')),['demraidealcollege.edu.bd','www.demraidealcollege.edu.bd'],true) || ($parts['scheme']??'')!=='https') respond(['error'=>'Invalid origin'],403);
  }
 }
