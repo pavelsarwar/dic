@@ -47,6 +47,18 @@
    {label:'গ্যালারি',url:'/gallery'},
    {label:'আরও',children:[['নীতিমালা','/policies'],['যোগাযোগ','/contact']]}
   ];
+  const customNav=Array.isArray(s.navigation)&&s.navigation.length?s.navigation:null;
+  if(customNav){
+   const arranged=[],parents=new Map();
+   customNav.filter(x=>x&&x.active!==false).forEach(x=>{
+    const group=String(x.group||'').trim();
+    if(group){
+     if(!parents.has(group)){const entry={label:group,children:[]};parents.set(group,entry);arranged.push(entry)}
+     parents.get(group).children.push([x.label,x.url]);
+    }else arranged.push({label:x.label,url:x.url});
+   });
+   groups.splice(0,groups.length,...arranged);
+  }
   const clean=path=>{const s=String(path||'').trim();if(s==='/'||s==='index.html'||s==='/index.html')return '/';const m=s.match(/^\/?([a-z0-9-]+)(?:\.html)?(#[a-z0-9_-]+)?$/i);return m?'/'+m[1]+(m[2]||''):''};
   // Existing CMS navigation labels can override the default label for matching pages.
   const overrides=new Map((Array.isArray(s.navigation)?s.navigation:[]).map(x=>[clean(x?.url),String(x?.label||'').trim()]).filter(x=>x[0]&&x[1]));
