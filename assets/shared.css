@@ -1,1 +1,33 @@
-.cms-header{position:sticky;top:0;z-index:100;background:white;color:#285a36;box-shadow:0 3px 15px #1232;font-family:'Hind Siliguri',sans-serif}.cms-shell{max-width:1160px;margin:auto;padding:0 22px}.cms-header .cms-shell{min-height:84px;display:flex;justify-content:space-between;align-items:center;gap:16px}.cms-brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:700;text-decoration:none;color:#285a36}.cms-brand img,.cms-seal{width:55px;height:55px;object-fit:contain}.cms-seal{display:grid;place-items:center;border-radius:50%;background:#78ac39;color:white}.cms-brand small{display:block;font-size:13px;color:#637b71;font-weight:400}.cms-navigation{display:flex;gap:18px;align-items:center}.cms-navigation a{text-decoration:none;color:#285a36}.cms-navigation a:hover{color:#70a537}.cms-menu-btn{display:none;border:1px solid #d6e3d0;border-radius:7px;background:white;padding:8px 12px;font:inherit}.cms-footer{background:#285a36;color:#e1efe6;padding:30px 0;font-family:'Hind Siliguri',sans-serif}.cms-footer .cms-shell{display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap}@media(max-width:850px){.cms-header .cms-shell{min-height:74px;flex-wrap:wrap}.cms-menu-btn{display:block}.cms-navigation{display:none;flex-direction:column;align-items:stretch;width:100%;padding:8px 0 16px}.cms-navigation.open{display:flex}.cms-brand{font-size:18px}}
+/* Unified responsive college navigation */
+.cms-header{position:sticky;top:0;z-index:100;background:#fff;color:#245a36;box-shadow:0 4px 22px #153c2814;font-family:'Hind Siliguri',sans-serif}
+.cms-shell{max-width:1200px;margin:auto;padding:0 20px}
+.cms-header .cms-shell{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.cms-brand{display:flex;align-items:center;gap:12px;min-width:0;flex-shrink:0;font-size:21px;font-weight:700;text-decoration:none;color:#245a36;line-height:1.25}
+.cms-brand img,.cms-seal{width:52px;height:52px;object-fit:contain;flex-shrink:0}
+.cms-seal{display:grid;place-items:center;border-radius:50%;background:#79ac3d;color:white}
+.cms-brand small{display:block;font-size:12px;color:#6b8071;font-weight:400;margin-top:3px}
+.cms-navigation{display:flex;align-items:center;justify-content:flex-end;gap:3px}
+.cms-navigation a,.cms-drop-trigger{display:flex;align-items:center;gap:5px;white-space:nowrap;padding:12px 10px;border:0;border-radius:8px;background:transparent;color:#285a36;text-decoration:none;font:600 14px 'Hind Siliguri',sans-serif;cursor:pointer}
+.cms-navigation a:hover,.cms-drop-trigger:hover,.cms-navigation a[aria-current="page"]{background:#eef6e8;color:#17672d}
+.cms-dropdown{position:relative}
+.cms-submenu{display:none;position:absolute;top:100%;left:0;min-width:215px;background:#fff;border:1px solid #e3eadd;border-radius:12px;padding:7px;box-shadow:0 16px 36px #123b2626;z-index:120}
+.cms-dropdown:last-child .cms-submenu{left:auto;right:0}
+.cms-submenu a{padding:10px 13px;white-space:normal}
+.cms-dropdown:hover .cms-submenu,.cms-dropdown:focus-within .cms-submenu,.cms-dropdown.expanded .cms-submenu{display:block}
+.cms-menu-btn{display:none;border:1px solid #d6e3d0;border-radius:8px;background:#f5faf2;padding:9px 13px;font:600 15px 'Hind Siliguri',sans-serif;color:#285a36;cursor:pointer}
+.cms-header a:focus-visible,.cms-header button:focus-visible{outline:3px solid #d3a931;outline-offset:2px}
+.cms-footer{background:#285a36;color:#e1efe6;padding:30px 0;font-family:'Hind Siliguri',sans-serif}
+.cms-footer .cms-shell{display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap}
+@media(max-width:1080px){
+ .cms-header .cms-shell{min-height:74px;flex-wrap:wrap;gap:10px}
+ .cms-brand{font-size:18px}.cms-brand img,.cms-seal{width:46px;height:46px}
+ .cms-menu-btn{display:block;margin-left:auto}
+ .cms-navigation{display:none;width:100%;flex-direction:column;align-items:stretch;gap:2px;padding:4px 0 15px;max-height:75vh;overflow-y:auto}
+ .cms-navigation.open{display:flex}
+ .cms-navigation>a,.cms-drop-trigger{width:100%;justify-content:space-between;padding:11px 14px;font-size:16px}
+ .cms-submenu{position:static;display:none;min-width:0;border:0;border-radius:8px;box-shadow:none;background:#f3f8f0;margin:0 8px 6px;padding:4px 8px}
+ .cms-dropdown:hover .cms-submenu,.cms-dropdown:focus-within .cms-submenu{display:none}
+ .cms-dropdown.expanded .cms-submenu{display:block}
+ .cms-submenu a{padding:9px 14px}
+}
+@media(max-width:420px){.cms-brand{font-size:16px}.cms-brand small{font-size:11px}.cms-shell{padding:0 14px}}
