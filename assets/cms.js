@@ -1,18 +1,12 @@
 (function(){
- const cfg=window.DIC_CMS_CONFIG||{};
- const configured=!!(cfg.supabaseUrl&&cfg.supabaseAnonKey);
- const base=String(cfg.supabaseUrl||'').replace(/\/$/,'');
- const headers=()=>({'apikey':cfg.supabaseAnonKey,'Content-Type':'application/json'});
+ const configured=true;
  async function publicList(type){
-  if(!configured)return [];
-  const url=base+'/rest/v1/cms_content?type=eq.'+encodeURIComponent(type)+'&published=eq.true&select=*&order=sort_order.asc,created_at.desc';
-  const r=await fetch(url,{headers:headers()});if(!r.ok)throw Error('Content loading failed');return r.json();
+  const r=await fetch('api/index.php?action=public&type='+encodeURIComponent(type),{credentials:'same-origin'});
+  if(!r.ok)throw Error('Content loading failed');return (await r.json()).items||[];
  }
  async function settings(){
-  if(!configured)return {};
-  const r=await fetch(base+'/rest/v1/site_settings?select=key,value',{headers:headers()});
-  if(!r.ok)throw Error('Settings loading failed');
-  return Object.fromEntries((await r.json()).map(x=>[x.key,x.value]));
+  const r=await fetch('api/index.php?action=settings',{credentials:'same-origin'});
+  if(!r.ok)throw Error('Settings loading failed');return (await r.json()).settings||{};
  }
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function safeUrl(s){try{let u=new URL(s,location.href);return ['https:','http:'].includes(u.protocol)?u.href:''}catch{return ''}}
