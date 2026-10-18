@@ -1,0 +1,14 @@
+Options -MultiViews
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Redirect legacy .html links to canonical extensionless URLs.
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html(?:[\s?]) [NC]
+RewriteRule ^(.+)\.html$ /$1 [R=301,L,NE]
+# Home page.
+RewriteRule ^$ index.html [L]
+# Resolve present and future static pages without exposing private files.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([a-z0-9][a-z0-9-]*)/?$ $1.html [L,NC]
+</IfModule>
