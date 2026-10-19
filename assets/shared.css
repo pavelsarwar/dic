@@ -74,3 +74,14 @@
  .cms-brand img{max-width:min(58vw,170px);max-height:76px}
  .cms-header .cms-shell{min-height:90px}
 }
+
+.cms-announcement{background:#145b3c;color:#fff;text-align:center;padding:8px 16px;font:500 14px/1.6 'Hind Siliguri',sans-serif}
+.cms-footer{padding:42px 0 18px}
+.cms-footer .cms-footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px}
+.cms-footer-grid>div{min-width:0}
+.cms-footer-grid strong{display:block;font-size:18px;margin-bottom:15px}
+.cms-footer-grid p{font-size:14px;line-height:1.8;margin:6px 0;color:#e1efe6}
+.cms-footer-grid a{color:#e1efe6;text-decoration:none}
+.cms-footer-grid a:hover{text-decoration:underline}
+.cms-footer .cms-footer-bottom{border-top:1px solid #ffffff30;margin-top:28px;padding-top:16px;font-size:13px;display:block;text-align:center}
+@media(max-width:700px){.cms-footer .cms-footer-grid{grid-template-columns:1fr;gap:20px}.cms-footer{padding-top:30px}}
