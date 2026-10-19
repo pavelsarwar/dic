@@ -253,3 +253,21 @@ main p,.section p,.cms-footer p{line-height:1.65}
 .cms-social-links a:hover,.cms-social-links a:focus-visible{background:#ffffff40;transform:translateY(-2px)}
 .cms-social-links svg{width:16px;height:16px}
 @media(max-width:650px){.cms-top-meta{margin-left:0}.cms-social-links{margin-left:4px;padding-left:9px;gap:5px}.cms-social-links a{width:28px;height:28px}}
+
+/* Homepage: balanced college news and Facebook feed */
+#news .dic-news-social-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:20px;align-items:stretch}
+#news .dic-news-column,#news .dic-facebook-column{min-width:0;display:flex;flex-direction:column}
+#news .dic-column-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+#news .dic-column-heading h3{font-size:22px;line-height:1.4;margin:0;color:#174b31}
+#news .dic-column-heading a{color:#1f6b42;font-size:14px;font-weight:700;text-decoration:none}
+#news .dic-column-heading a[hidden]{display:none}
+#news .newsCards{display:grid;grid-template-columns:1fr;gap:12px;flex:1}
+#news .newsCard{display:block;min-width:0;background:#fff;border:1px solid #dce9d9;border-radius:12px;overflow:hidden}
+#news .newsCard .inner{padding:17px 20px}
+#news .newsCard h3{font-size:18px;margin:0 0 6px;line-height:1.45}
+#news .newsCard p{font-size:14px;line-height:1.6;margin:0 0 7px}
+#news .newsCard .inner>a{font-weight:700;color:#21683e;font-size:14px}
+#news .dic-facebook-feed{display:flex;align-items:center;justify-content:center;flex:1;min-height:400px;background:#fff;border:1px solid #dce9d9;border-radius:12px;overflow:hidden;text-align:center}
+#news .dic-facebook-feed iframe{width:100%;max-width:500px;min-height:540px}
+#news .dic-facebook-feed p,#news .dic-news-empty{color:#5a7061;padding:22px;margin:0}
+@media(max-width:850px){#news .dic-news-social-grid{grid-template-columns:1fr;gap:30px}#news .dic-facebook-feed{min-height:250px}#news .dic-facebook-feed iframe{min-height:540px}}
