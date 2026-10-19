@@ -85,3 +85,13 @@
 .cms-footer-grid a:hover{text-decoration:underline}
 .cms-footer .cms-footer-bottom{border-top:1px solid #ffffff30;margin-top:28px;padding-top:16px;font-size:13px;display:block;text-align:center}
 @media(max-width:700px){.cms-footer .cms-footer-grid{grid-template-columns:1fr;gap:20px}.cms-footer{padding-top:30px}}
+
+/* Compact footer contact and visually separated copyright strip */
+.cms-footer{padding-bottom:0}
+.cms-footer .cms-footer-grid{display:grid;align-items:start;gap:26px}
+.cms-footer-grid strong{margin-bottom:8px;line-height:1.35}
+.cms-footer-grid p{margin:2px 0;line-height:1.42}
+.cms-footer-grid p+p{margin-top:3px}
+.cms-footer-logo{display:block;width:auto;max-width:190px;max-height:100px;object-fit:contain;object-position:left center;margin:0 0 12px}
+.cms-footer .cms-footer-bottom{max-width:none;width:100%;background:#123e2b;border-top:1px solid #ffffff1c;margin-top:28px;padding:15px 20px;color:#f2f7f3;text-align:center;display:block}
+@media(max-width:700px){.cms-footer .cms-footer-grid{gap:16px}.cms-footer .cms-footer-bottom{margin-top:20px}}
