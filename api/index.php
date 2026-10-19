@@ -91,7 +91,7 @@ if ($action==='save_settings' && $method==='POST') {
  } elseif ($key==='contact') {
   $value=['address'=>mb_substr(trim((string)($value['address']??'')),0,300),'email'=>mb_substr(trim((string)($value['email']??'')),0,190),'phone'=>mb_substr(trim((string)($value['phone']??'')),0,80)];
   } elseif ($key==='layout') {
-  $allowed=['header_notice','header_notice_active','footer_about','footer_copyright','footer_email','footer_phone','footer_links_title'];
+  $allowed=['header_notice','header_notice_active','footer_about','footer_copyright','footer_email','footer_phone','footer_links_title','footer_logo'];
   $clean=[];foreach($allowed as $field){
    if(!array_key_exists($field,$value))continue;
    $raw=$value[$field];
