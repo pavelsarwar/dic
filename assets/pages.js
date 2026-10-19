@@ -21,6 +21,8 @@ function placeholder(){
  root.innerHTML='<div class="dic-empty"><h2>তথ্য শীঘ্রই প্রকাশিত হবে</h2><p>কলেজ কর্তৃপক্ষের অনুমোদিত তথ্য প্রকাশের পর এখানে দেখা যাবে।</p></div>';
 }
 document.addEventListener('DOMContentLoaded',async()=>{
+ if(key==='gallery'&&window.DICLightbox)window.DICLightbox.init(root);
+
  // Keep content area empty while the CMS request is pending; avoid flashing an inaccurate placeholder.
  try{
   let items=await CMS().publicList(type);
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
    if(record)page(record);
    else placeholder();
   }else if(items.length){
-   root.innerHTML='<div class="dic-list '+(key==='gallery'?'dic-gallery':'')+'">'+items.map(x=>card(x,key)).join('')+'</div>';
+   root.innerHTML=key==='gallery'?'<div class="dic-list dic-gallery">'+items.filter(x=>x.image_url&&safe(x.image_url)).map(x=>'<button type="button" class="dic-gallery-photo" data-lightbox-src="'+esc(safe(x.image_url))+'" aria-label="ছবি বড় করে দেখুন"><img src="'+esc(safe(x.image_url))+'" alt="কলেজের ছবি" loading="lazy"></button>').join('')+'</div>':'<div class="dic-list">'+items.map(x=>card(x,key)).join('')+'</div>';
   }else placeholder();
   if(key==='notices'){
    const id=new URLSearchParams(location.search).get('notice');
