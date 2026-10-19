@@ -71,10 +71,9 @@
    {label:'একাডেমিক',children:[['শিক্ষা কার্যক্রম','/academic'],['ক্লাস রুটিন','/routine'],['পরীক্ষার সময়সূচি','/exam'],['ফলাফল','/results']]},
    {label:'ভর্তি',url:'/admission'},
    {label:'নোটিশ ও সংবাদ',children:[['নোটিশ বোর্ড','/notices'],['কলেজ সংবাদ','/news'],['অনুষ্ঠান ও কার্যক্রম','/events']]},
-   {label:'গ্যালারি',url:'/gallery'},
-   {label:'আরও',children:[['নীতিমালা','/policies'],['যোগাযোগ','/contact']]}
+   {label:'গ্যালারি',url:'/gallery'}
   ];
-  const customNav=Array.isArray(s.navigation)&&s.navigation.length?s.navigation:null;
+  const customNav=Array.isArray(s.navigation)?s.navigation:null;
   if(customNav){
    const arranged=[],parents=new Map();
    customNav.filter(x=>x&&x.active!==false).forEach(x=>{
