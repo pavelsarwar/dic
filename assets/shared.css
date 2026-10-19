@@ -169,3 +169,11 @@
 main p:not(.muted):not(.date):not(.principal-read-more),
 .dic-prose,.dic-page-body{text-align:justify;text-justify:inter-word}
 #resources .service-label{text-align:center}
+
+/* Principal message card beside latest notices */
+#notice #principal .person{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;min-height:320px}
+#notice #principal .principal-preview-photo{width:136px;max-width:100%;height:136px;object-fit:cover;object-position:center top;border-radius:50%;border:4px solid #e5f2e7;box-shadow:0 6px 18px #164c2c1c;flex-shrink:0}
+#notice #principal .principal-preview-body{width:100%;text-align:left}
+#notice #principal .principal-preview-body p{text-align:justify;line-height:1.9;margin-bottom:18px}
+#notice #principal .principal-read-more{display:table;margin:0 auto}
+@media(max-width:850px){#notice #principal .person{min-height:0}}
