@@ -238,3 +238,10 @@ main p,.section p,.cms-footer p{line-height:1.65}
 .dic-lightbox-content img{display:block;max-width:min(94vw,1400px);max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:5px}
 .dic-lightbox-close{position:absolute;top:0;right:0;transform:translate(35%,-40%);width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#1d2c22;font:normal 34px/1 Arial,sans-serif;cursor:pointer;z-index:1;box-shadow:0 2px 12px #0005}
 @media(max-width:700px){.dic-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dic-lightbox-content img{max-width:94vw;max-height:85vh}.dic-lightbox-close{transform:translate(10%,-65%)}}
+
+/* Match statistics section background to Recent News & Events */
+.dic-stats-section{background:#eef5e8;color:#214832}
+.dic-stats-section .dic-stat{background:#fff;border:1px solid #dbe8d6;box-shadow:0 5px 18px #244a3210}
+.dic-stats-section .dic-stat>span{color:#386548}
+.dic-stats-section .dic-stat strong{color:#1a5034}
+.dic-stats-section .dic-stat em{color:#357d4c}
