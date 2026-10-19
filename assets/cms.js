@@ -32,9 +32,10 @@
    }
    const galleryGrid=document.getElementById('homeGalleryGrid');
    if(galleryGrid){
+    if(window.DICLightbox)window.DICLightbox.init(galleryGrid);
     publicList('gallery').then(items=>{
      const photos=items.filter(x=>x.image_url&&safeUrl(x.image_url)).slice(0,6);
-     galleryGrid.innerHTML=photos.length?photos.map(x=>'<a class="dic-home-gallery-item" href="/gallery" aria-label="'+escape(x.title||'ফটো গ্যালারি')+'"><img src="'+escape(safeUrl(x.image_url))+'" alt="'+escape(x.title||'কলেজের ছবি')+'" loading="lazy"><span>'+escape(x.title||'কলেজের ছবি')+'</span></a>').join(''):'<p class="dic-gallery-loading">এখনো কোনো ছবি প্রকাশিত হয়নি। <a href="/gallery">গ্যালারি দেখুন →</a></p>';
+     galleryGrid.innerHTML=photos.length?photos.map(x=>'<button type="button" class="dic-home-gallery-item" data-lightbox-src="'+escape(safeUrl(x.image_url))+'" aria-label="ছবি বড় করে দেখুন"><img src="'+escape(safeUrl(x.image_url))+'" alt="কলেজের ছবি" loading="lazy"></button>').join(''):'<p class="dic-gallery-loading">এখনো কোনো ছবি প্রকাশিত হয়নি। <a href="/gallery">গ্যালারি দেখুন →</a></p>';
     }).catch(()=>{galleryGrid.innerHTML='<p class="dic-gallery-loading">গ্যালারির ছবি এই মুহূর্তে লোড করা যাচ্ছে না।</p>';});
    }
    // Replace demonstration cards with approved published records when available.
