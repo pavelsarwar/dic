@@ -41,6 +41,6 @@ body,button,input,textarea,select{font-family:'Anek Bangla',sans-serif}
 @media(max-width:600px){.dic-banner{padding:30px 0 34px}.dic-banner h1{font-size:30px}.dic-page .dic-prose{line-height:1.9}}
 
 /* Principal portrait: preserve a formal 4:5 photo instead of full-width cropped cover */
-body[data-page="principal"] .dic-page-cover{display:block;width:min(680px,calc(100% - 48px));height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;object-position:center;margin:30px auto 0;border-radius:14px;box-shadow:0 8px 25px #163d2820;background:#f3f6f3}
+body[data-page="principal"] .dic-page-cover{display:block;width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;object-position:center;margin:0;border-radius:0;box-shadow:none;background:transparent}
 body[data-page="principal"] .dic-page-body{padding-top:28px}
-@media(max-width:560px){body[data-page="principal"] .dic-page-cover{width:calc(100% - 28px);margin-top:18px;border-radius:10px}}
+@media(max-width:560px){body[data-page="principal"] .dic-page-cover{width:100%;height:auto;margin:0;border-radius:0}}
