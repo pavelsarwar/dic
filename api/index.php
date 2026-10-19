@@ -91,11 +91,20 @@ if ($action==='save_settings' && $method==='POST') {
  } elseif ($key==='contact') {
   $value=['address'=>mb_substr(trim((string)($value['address']??'')),0,300),'email'=>mb_substr(trim((string)($value['email']??'')),0,190),'phone'=>mb_substr(trim((string)($value['phone']??'')),0,80)];
   } elseif ($key==='layout') {
-  $allowed=['header_notice','header_notice_active','footer_about','footer_copyright','footer_email','footer_phone','footer_links_title','footer_logo'];
+  $allowed=['header_notice','header_notice_active','footer_about','footer_copyright','footer_email','footer_phone','footer_links_title','footer_logo','top_motto','top_eiin','top_language','topbar_active','footer_links'];
   $clean=[];foreach($allowed as $field){
    if(!array_key_exists($field,$value))continue;
    $raw=$value[$field];
-   if($field==='header_notice_active'){$clean[$field]=!empty($raw);continue;}
+   if($field==='header_notice_active'||$field==='topbar_active'){$clean[$field]=!empty($raw);continue;}
+   if($field==='footer_links'){
+    if(!is_array($raw)||count($raw)>20)respond(['error'=>'Invalid footer links'],400);
+    $links=[];foreach($raw as $item){
+     if(!is_array($item))respond(['error'=>'Invalid link'],400);
+     $label=trim((string)($item['label']??''));$url=trim((string)($item['url']??''));
+     if($label===''||mb_strlen($label)>80||!preg_match('~^/(?:[a-zA-Z0-9/_#-]*)$~',$url))respond(['error'=>'Use a label and a local /page URL'],400);
+     $links[]=['label'=>$label,'url'=>$url,'active'=>!empty($item['active'])];
+    }$clean[$field]=$links;continue;
+   }
    if(!is_string($raw)||mb_strlen($raw)>500)respond(['error'=>'Invalid header/footer field'],400);
    $clean[$field]=trim($raw);
   }$value=$clean;
