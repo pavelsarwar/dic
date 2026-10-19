@@ -111,6 +111,24 @@
   }
   if(footer){const contact=s.contact||{};const email=contact.email||'';const phone=contact.phone||'';footer.innerHTML='<footer class="cms-footer"><div class="cms-shell cms-footer-grid"><div>'+(layout.footer_logo&&safeUrl(layout.footer_logo)?'<img class="cms-footer-logo" src="'+escape(safeUrl(layout.footer_logo))+'" alt="কলেজ লোগো">':'')+(String(layout.footer_about||'').trim()?'<p>'+escape(layout.footer_about)+'</p>':'')+'</div><div><strong>যোগাযোগ</strong><p class="cms-contact-line"><span class="cms-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span>'+escape(contact.address||'ঢাকা, বাংলাদেশ')+'</span></p>'+(email?'<p class="cms-contact-line"><span class="cms-contact-icon" aria-hidden="true">✉</span><a href="mailto:'+encodeURIComponent(email)+'">'+escape(email)+'</a></p>':'')+(phone?'<p class="cms-contact-line"><span class="cms-contact-icon" aria-hidden="true">☎</span><a href="tel:'+escape(String(phone).replace(/[^+0-9]/g,''))+'">'+escape(phone)+'</a></p>':'')+'</div><div><strong>'+escape(layout.footer_links_title||'দ্রুত লিংক')+'</strong><p><a href="/about">কলেজ পরিচিতি</a></p><p><a href="/notices">নোটিশ বোর্ড</a></p><p><a href="/contact">যোগাযোগ</a></p></div></div><div class="cms-shell cms-footer-bottom">'+escape((layout.footer_copyright||'© {year} ডেমরা আইডিয়াল কলেজ | সর্বস্বত্ব সংরক্ষিত').replace('{year}',String(new Date().getFullYear())))+'</div></footer>'}
  }
+ // Shared, accessible photo viewer for homepage and gallery page.
+ let lightbox=null,previousFocus=null;
+ function closeLightbox(){
+  if(!lightbox)return;
+  lightbox.hidden=true;document.body.style.overflow='';previousFocus?.focus();previousFocus=null;
+ }
+ function openLightbox(src){
+  if(!lightbox){
+   lightbox=document.createElement('div');lightbox.className='dic-lightbox';lightbox.hidden=true;
+   lightbox.innerHTML='<div class="dic-lightbox-backdrop"></div><div class="dic-lightbox-content" role="dialog" aria-modal="true" aria-label="বড় ছবি"><button type="button" class="dic-lightbox-close" aria-label="বন্ধ করুন">×</button><img alt="কলেজের ছবি"></div>';
+   document.body.append(lightbox);
+   lightbox.querySelector('.dic-lightbox-close').onclick=closeLightbox;
+   lightbox.querySelector('.dic-lightbox-backdrop').onclick=closeLightbox;
+  }
+  previousFocus=document.activeElement;lightbox.querySelector('img').src=src;lightbox.hidden=false;document.body.style.overflow='hidden';lightbox.querySelector('.dic-lightbox-close').focus();
+ }
+ document.addEventListener('keydown',e=>{if(!lightbox||lightbox.hidden)return;if(e.key==='Escape')closeLightbox();if(e.key==='Tab'){e.preventDefault();lightbox.querySelector('.dic-lightbox-close').focus()}});
+ window.DICLightbox={init(container){container.addEventListener('click',e=>{const trigger=e.target.closest('[data-lightbox-src]');if(!trigger||!container.contains(trigger))return;const src=trigger.getAttribute('data-lightbox-src');if(src&&safeUrl(src))openLightbox(src)})}};
  window.DIC_CMS={configured,publicList,settings,shared,escape,safeUrl};
  document.addEventListener('DOMContentLoaded',shared);
 })();
