@@ -21,15 +21,16 @@ function placeholder(){
  root.innerHTML='<div class="dic-empty"><h2>তথ্য শীঘ্রই প্রকাশিত হবে</h2><p>কলেজ কর্তৃপক্ষের অনুমোদিত তথ্য প্রকাশের পর এখানে দেখা যাবে।</p></div>';
 }
 document.addEventListener('DOMContentLoaded',async()=>{
- placeholder();
+ // Keep content area empty while the CMS request is pending; avoid flashing an inaccurate placeholder.
  try{
   let items=await CMS().publicList(type);
   if(type==='page'){
    const record=items.find(x=>x.slug===key);
    if(record)page(record);
+   else placeholder();
   }else if(items.length){
    root.innerHTML='<div class="dic-list '+(key==='gallery'?'dic-gallery':'')+'">'+items.map(x=>card(x,key)).join('')+'</div>';
-  }
+  }else placeholder();
   if(key==='notices'){
    const id=new URLSearchParams(location.search).get('notice');
    if(id){
@@ -43,6 +44,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
    const record=items.find(x=>x.slug===key);
    if(record){const h=document.querySelector('.dic-banner h1');if(h)h.textContent=record.title;}
   }
- }catch(err){console.warn('Unable to load published content',err)}
+ }catch(err){console.warn('Unable to load published content',err);root.innerHTML='<div class="dic-empty"><p>তথ্য লোড করা যাচ্ছে না। অনুগ্রহ করে আবার চেষ্টা করুন।</p></div>';}
 });
 })();
