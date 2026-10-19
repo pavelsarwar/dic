@@ -70,7 +70,7 @@ function configureEditor(){
  $('bodyLabel').textContent=type==='page'?'Page Content':type==='slide'?'Slide Description':'বিস্তারিত বিবরণ';
  $('slug').placeholder=type==='page'?'about / principal / contact':'optional-url-slug';
 }
-const homepageLabels={hero1_title:'ব্যানার ১ — শিরোনাম',hero1_text:'ব্যানার ১ — বিবরণ',hero2_title:'ব্যানার ২ — শিরোনাম',hero2_text:'ব্যানার ২ — বিবরণ',hero3_title:'ব্যানার ৩ — শিরোনাম',hero3_text:'ব্যানার ৩ — বিবরণ',about_title:'কলেজ পরিচিতি — শিরোনাম',about_text:'কলেজ পরিচিতি — বিবরণ',principal_title:'অধ্যক্ষের বাণী — শিরোনাম',principal_text:'অধ্যক্ষের বাণী — বিবরণ',admission_text:'ভর্তি — বিবরণ',contact_text:'যোগাযোগ — বিবরণ'};
+const homepageLabels={hero1_title:'ব্যানার ১ — শিরোনাম',hero1_text:'ব্যানার ১ — বিবরণ',hero2_title:'ব্যানার ২ — শিরোনাম',hero2_text:'ব্যানার ২ — বিবরণ',hero3_title:'ব্যানার ৩ — শিরোনাম',hero3_text:'ব্যানার ৩ — বিবরণ',about_title:'কলেজ পরিচিতি — শিরোনাম',about_text:'কলেজ পরিচিতি — বিবরণ',principal_title:'অধ্যক্ষের বাণী — শিরোনাম',principal_text:'অধ্যক্ষের বাণী — বিবরণ',admission_text:'ভর্তি — বিবরণ',stat1_label:'পরিসংখ্যান ১ — নাম',stat1_value:'পরিসংখ্যান ১ — সংখ্যা',stat1_suffix:'পরিসংখ্যান ১ — + / suffix',stat2_label:'পরিসংখ্যান ২ — নাম',stat2_value:'পরিসংখ্যান ২ — সংখ্যা',stat2_suffix:'পরিসংখ্যান ২ — + / suffix',stat3_label:'পরিসংখ্যান ৩ — নাম',stat3_value:'পরিসংখ্যান ৩ — সংখ্যা',stat3_suffix:'পরিসংখ্যান ৩ — + / suffix',stat4_label:'পরিসংখ্যান ৪ — নাম',stat4_value:'পরিসংখ্যান ৪ — সংখ্যা',stat4_suffix:'পরিসংখ্যান ৪ — + / suffix'};
 function setView(){
  document.querySelectorAll('#dashboard main>.card').forEach((card,i)=>{
   const visible=activeView==='settings'?i===1:activeView==='homepage'?i===2:activeView==='navigation'?i===4:activeView==='layout'?i===3:i===0||i===5;
@@ -159,7 +159,7 @@ async function loadHomepage(){try{
  for(const [key,label] of Object.entries(homepageLabels)){
   const el=document.createElement('label');el.textContent=label;
   const field=key.endsWith('_text')?document.createElement('textarea'):document.createElement('input');
-  field.name=key;field.maxLength=1500;field.value=v[key]||'';field.placeholder='এখানে নতুন লেখা লিখুন';el.append(field);container.append(el);
+  field.name=key;field.maxLength=1500;field.value=v[key]??(key.match(/^stat[1-4]_label$/)?['Years','Teachers','Happy Students','Graduates'][Number(key[4])-1]:'');field.placeholder=key.endsWith('_value')?'যাচাইকৃত সংখ্যা লিখুন':key.endsWith('_suffix')?'যেমন +':'এখানে নতুন লেখা লিখুন';el.append(field);container.append(el);
  }
 }catch(e){status(e.message)}}
 $('homepageForm').onsubmit=async e=>{e.preventDefault();try{
