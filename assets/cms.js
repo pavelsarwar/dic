@@ -57,10 +57,23 @@
      const more=document.createElement('a');more.href='/notices';more.textContent='সব নোটিশ দেখুন →';more.style.display='block';more.style.marginTop='16px';panel.append(more);
     }
     const cards=document.querySelector('#news .newsCards');
-    if(cards&&news.length){cards.replaceChildren();news.slice(0,3).forEach(n=>{const article=document.createElement('article');article.className='newsCard';const inner=document.createElement('div');inner.className='inner';const title=document.createElement('h3');title.textContent=n.title;const body=document.createElement('p');body.textContent=n.body||'';inner.append(title,body);article.append(inner);cards.append(article)})}
+    if(cards){cards.replaceChildren();if(!news.length){cards.innerHTML='<p class="dic-news-empty">এখনো কোনো সংবাদ প্রকাশিত হয়নি।</p>';}else news.slice(0,3).forEach(n=>{const article=document.createElement('article');article.className='newsCard';const inner=document.createElement('div');inner.className='inner';const title=document.createElement('h3');title.textContent=n.title;const body=document.createElement('p');body.textContent=String(n.body||'').slice(0,180);const more=document.createElement('a');more.href='/news';more.textContent='বিস্তারিত →';inner.append(title,body,more);article.append(inner);cards.append(article)})}
     const banners=document.querySelectorAll('.heroSlider .slide');
     slides.slice(0,banners.length).forEach((slide,i)=>{const h=banners[i].querySelector('h1'),p=banners[i].querySelector('p');if(h&&slide.title)h.textContent=slide.title;if(p&&slide.body)p.textContent=slide.body;if(slide.image_url&&safeUrl(slide.image_url))banners[i].style.backgroundImage='url("'+safeUrl(slide.image_url).replace(/["\\]/g,'')+'")'});
    });
+  }
+  const fbFeed=document.getElementById('facebookFeed');
+  if(fbFeed){
+   const fbUrl=String(s.layout?.social_facebook||'').trim();
+   const fbLink=document.getElementById('facebookPageLink');
+   if(/^https:\/\/(?:[a-z0-9-]+\.)*(?:facebook\.com|fb\.com)\//i.test(fbUrl)){
+    if(fbLink){fbLink.href=fbUrl;fbLink.hidden=false}
+    const frame=document.createElement('iframe');
+    frame.title='ডেমরা আইডিয়াল কলেজ — ফেইসবুক আপডেট';
+    frame.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fbUrl)+'&tabs=timeline&width=500&height=540&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false';
+    frame.width='500';frame.height='540';frame.style.border='none';frame.loading='lazy';frame.allow='encrypted-media';frame.referrerPolicy='strict-origin-when-cross-origin';
+    fbFeed.replaceChildren(frame);
+   }
   }
   const brand=escape(s.identity?.name||'ডেমরা আইডিয়াল কলেজ');
   const logo=s.identity?.logo_url?safeUrl(s.identity.logo_url):'';
