@@ -50,3 +50,6 @@ body[data-page="principal"] .dic-page-body{padding-top:28px}
 .dic-page .dic-prose p,.dic-main .dic-prose p{line-height:1.65;margin:0 0 12px}
 .dic-card-body p,.dic-main p{line-height:1.65}
 @media(max-width:600px){.dic-page .dic-prose,.dic-page-body .dic-prose,.dic-main .dic-prose{line-height:1.65}}
+
+/* Hide redundant static subtitles under every inner-page banner title. */
+.dic-banner h1 ~ p{display:none!important}
