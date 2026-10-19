@@ -1,1 +1,20 @@
 body{margin:0;background:#f6faf5;color:#1c4330;font-family:'Hind Siliguri',sans-serif}*{box-sizing:border-box}.dic-wrap{max-width:1160px;margin:auto;padding:0 22px}.dic-banner{background:linear-gradient(120deg,#174d34,#38864b);color:white;padding:64px 0}.dic-banner h1{font-size:clamp(32px,4vw,48px);margin:8px 0}.dic-banner p{color:#e0f1e2}.dic-main{padding:48px 0 85px;min-height:45vh}.dic-note{background:#fff4da;border:1px solid #f0dea7;color:#7d5914;padding:12px 18px;border-radius:10px;margin-bottom:24px}.dic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.dic-card{background:white;border:1px solid #dce9dc;border-radius:14px;overflow:hidden;box-shadow:0 6px 22px #1a4b2910}.dic-card img{width:100%;max-height:260px;object-fit:cover}.dic-card-body{padding:26px}.dic-card h3{margin:0 0 12px;font-size:23px}.dic-card p{line-height:1.85;white-space:pre-line;color:#587264}.dic-card a{color:#287a43;font-weight:700}@media(max-width:680px){.dic-grid{grid-template-columns:1fr}.dic-banner{padding:42px 0}}
+/* Editorial templates: long-form pages and recurring announcements */
+.dic-main{background:#f7f9f7}
+.dic-page{max-width:980px;margin:0 auto;background:#fff;border:1px solid #e5ece5;border-radius:18px;overflow:hidden;box-shadow:0 12px 42px #153f2710}
+.dic-page-cover{display:block;width:100%;max-height:430px;object-fit:cover}
+.dic-page-body{padding:clamp(25px,5vw,58px)}
+.dic-page-body h2{font-size:clamp(26px,3vw,35px);line-height:1.4;margin:0 0 24px;color:#164d32}
+.dic-prose{white-space:pre-wrap;font-size:17px;line-height:2;color:#405d4b;overflow-wrap:anywhere}
+.dic-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.dic-list .dic-card{display:flex;flex-direction:column}
+.dic-list .dic-card-body{display:flex;flex-direction:column;flex:1}
+.dic-list .dic-card h2{font-size:21px;line-height:1.5;margin:10px 0}
+.dic-list .dic-card p{font-size:15px;line-height:1.85;margin:0 0 20px;flex:1}
+.dic-list .dic-card time{font-size:13px;color:#778c7c}
+.dic-download{display:inline-flex;align-items:center;align-self:flex-start;padding:8px 13px;border-radius:8px;background:#edf7ee;color:#196a3d;text-decoration:none;font-size:14px}
+.dic-list.dic-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dic-gallery .dic-card img{height:240px;object-fit:cover}
+.dic-empty{max-width:850px;margin:auto;background:white;border:1px solid #e2eae3;border-radius:16px;padding:42px;text-align:center;color:#62776b}
+.dic-empty h2{color:#255b3b}
+@media(max-width:760px){.dic-list,.dic-list.dic-gallery{grid-template-columns:1fr}.dic-page-body{padding:25px}.dic-gallery .dic-card img{height:auto}}
