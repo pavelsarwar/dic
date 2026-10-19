@@ -44,3 +44,9 @@ body,button,input,textarea,select{font-family:'Anek Bangla',sans-serif}
 body[data-page="principal"] .dic-page-cover{display:block;width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;object-position:center;margin:0;border-radius:0;box-shadow:none;background:transparent}
 body[data-page="principal"] .dic-page-body{padding-top:28px}
 @media(max-width:560px){body[data-page="principal"] .dic-page-cover{width:100%;height:auto;margin:0;border-radius:0}}
+
+/* Compact, consistent Bengali reading rhythm across inner pages */
+.dic-page .dic-prose,.dic-page-body .dic-prose,.dic-main .dic-prose{line-height:1.65;white-space:pre-line}
+.dic-page .dic-prose p,.dic-main .dic-prose p{line-height:1.65;margin:0 0 12px}
+.dic-card-body p,.dic-main p{line-height:1.65}
+@media(max-width:600px){.dic-page .dic-prose,.dic-page-body .dic-prose,.dic-main .dic-prose{line-height:1.65}}
