@@ -98,6 +98,16 @@
    const topMeta=(layout.top_eiin?'<span>EIIN: '+escape(layout.top_eiin.replace(/^.*?:\\s*/,''))+'</span>':'<span>EIIN: ১৩৭৬০৪</span>')+(layout.top_college_code?'<span>♙ College Code: '+escape(layout.top_college_code)+'</span>':'');
    const admissionUrl=layout.admission_button_url&&safeUrl(layout.admission_button_url);
    const admissionButton=layout.admission_button_active!==false&&admissionUrl?'<a class="cms-admission-btn" href="'+escape(admissionUrl)+'" target="_blank" rel="noopener noreferrer">'+escape(layout.admission_button_label||'Online Admission')+' ↗</a>':'';
+   const socialIcons={
+    social_facebook:'<path d="M15 21v-8h3l.5-4H15V7c0-1.2.4-2 2-2h2V1.4A23 23 0 0 0 16 1c-3 0-5 1.8-5 5v3H8v4h3v8z"/>',
+    social_instagram:'<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1"/>',
+    social_youtube:'<rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="m10 9 6 3-6 3z"/>'
+   };
+   const socialLinks=[['social_facebook','Facebook'],['social_instagram','Instagram'],['social_youtube','YouTube']].map(([key,label])=>{
+    const url=String(layout[key]||'').trim();if(!/^https:\/\//i.test(url))return '';
+    return '<a href="'+escape(url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+label+'" title="'+label+'"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'+socialIcons[key]+'</svg></a>';
+   }).join('');
+   const socialBlock=socialLinks?'<div class="cms-social-links">'+socialLinks+'</div>':'';
    header.innerHTML=(layout.topbar_active===false?'':'<div class="cms-topbar"><div class="cms-shell"><div class="cms-top-contact">'+topContact+'</div><div class="cms-top-meta">'+topMeta+'</div></div></div>')+'<header class="cms-header"><div class="cms-shell"><a class="cms-brand" href="/" aria-label="ডেমরা আইডিয়াল কলেজ — প্রচ্ছদ">'+(logo?'<img src="'+escape(logo)+'" alt="কলেজ লোগো">':'<span class="cms-seal">দি</span>')+'</a><button class="cms-menu-btn" type="button" aria-expanded="false" aria-controls="cms-navigation" aria-label="মেনু খুলুন">☰ মেনু</button><nav id="cms-navigation" class="cms-navigation" aria-label="প্রধান মেনু">'+nav+'</nav>'+admissionButton+'</div></header>';
   }
   if(header){
