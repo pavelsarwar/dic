@@ -23,10 +23,17 @@
     const notices=results[0].status==='fulfilled'?results[0].value:[];
     const news=results[1].status==='fulfilled'?results[1].value:[];
     const slides=results[2].status==='fulfilled'?results[2].value:[];
+    const urgent=document.querySelector('[data-urgent-notice]');
+    if(urgent){
+      const label=urgent.querySelector('[data-urgent-title]'),link=urgent.querySelector('[data-urgent-link]');
+      if(label)label.textContent=s.layout?.urgent_title||'জরুরি ঘোষণা';
+      urgent.hidden=s.layout?.urgent_active===false;
+      if(link){if(notices.length){link.textContent=notices[0].title;link.href='/notices?notice='+encodeURIComponent(notices[0].id)}else{link.textContent='সর্বশেষ নোটিশ দেখতে ক্লিক করুন';link.href='/notices'}}
+    }
     const panel=document.querySelector('#notice .panel');
     if(panel&&notices.length){
      panel.replaceChildren();
-     notices.slice(0,5).forEach(n=>{const row=document.createElement('div');row.className='notice';const title=document.createElement('strong');title.textContent=n.title;row.append(title);panel.append(row)});
+     notices.slice(0,5).forEach(n=>{const row=document.createElement('div');row.className='notice';const title=document.createElement('a');title.href='/notices?notice='+encodeURIComponent(n.id);title.textContent=n.title;title.className='cms-notice-link';row.append(title);panel.append(row)});
      const more=document.createElement('a');more.href='/notices';more.textContent='সব নোটিশ দেখুন →';more.style.display='block';more.style.marginTop='16px';panel.append(more);
     }
     const cards=document.querySelector('#news .newsCards');
@@ -66,7 +73,14 @@
   const item=(label,url)=>'<a href="'+escape(url)+'"'+(current===url?' aria-current="page"':'')+'>'+escape(overrides.get(url)||label)+'</a>';
   const nav=groups.map(g=>g.children?'<div class="cms-dropdown"><button class="cms-drop-trigger" type="button" aria-expanded="false">'+escape(g.label)+' <svg class="cms-chevron" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="cms-submenu">'+g.children.map(([l,u])=>item(l,u)).join('')+'</div></div>':item(g.label,g.url)).join('');
   const layout=s.layout||{};
-  if(header)header.innerHTML=(layout.topbar_active===false?'':'<div class="cms-topbar"><div class="cms-shell"><span>'+escape(layout.top_motto??'শিক্ষা • শৃঙ্খলা • মানবিক মূল্যবোধ')+'</span><span>'+escape(layout.top_eiin??'ইআইআইএন: ১৩৭৬০৪')+(layout.top_language===null||layout.top_language===undefined?'　 |　 বাংলা / English':layout.top_language?'　 |　 '+escape(layout.top_language):'')+'</span></div></div>')+(layout.header_notice_active&&layout.header_notice?'<div class="cms-announcement">'+escape(layout.header_notice)+'</div>':'')+'<header class="cms-header"><div class="cms-shell"><a class="cms-brand" href="/" aria-label="ডেমরা আইডিয়াল কলেজ — প্রচ্ছদ">'+(logo?'<img src="'+escape(logo)+'" alt="কলেজ লোগো">':'<span class="cms-seal">দি</span>')+'</a><button class="cms-menu-btn" type="button" aria-expanded="false" aria-controls="cms-navigation" aria-label="মেনু খুলুন">☰ মেনু</button><nav id="cms-navigation" class="cms-navigation" aria-label="প্রধান মেনু">'+nav+'</nav></div></header>';
+  if(header){
+   const contact=s.contact||{};
+   const topContact=(contact.phone?'<a href="tel:'+escape(String(contact.phone).replace(/[^+0-9]/g,''))+'"><span aria-hidden="true">☎</span> '+escape(contact.phone)+'</a>':'')+(contact.email?'<a href="mailto:'+escape(contact.email)+'"><span aria-hidden="true">✉</span> '+escape(contact.email)+'</a>':'');
+   const topMeta=(layout.top_eiin?'<span>EIIN: '+escape(layout.top_eiin.replace(/^.*?:\\s*/,''))+'</span>':'<span>EIIN: ১৩৭৬০৪</span>')+(layout.top_college_code?'<span>♙ College Code: '+escape(layout.top_college_code)+'</span>':'');
+   const admissionUrl=layout.admission_button_url&&safeUrl(layout.admission_button_url);
+   const admissionButton=layout.admission_button_active!==false&&admissionUrl?'<a class="cms-admission-btn" href="'+escape(admissionUrl)+'" target="_blank" rel="noopener noreferrer">'+escape(layout.admission_button_label||'Online Admission')+' ↗</a>':'';
+   header.innerHTML=(layout.topbar_active===false?'':'<div class="cms-topbar"><div class="cms-shell"><div class="cms-top-contact">'+topContact+'</div><div class="cms-top-meta">'+topMeta+'</div></div></div>')+(layout.header_notice_active&&layout.header_notice?'<div class="cms-announcement">'+escape(layout.header_notice)+'</div>':'')+'<header class="cms-header"><div class="cms-shell"><a class="cms-brand" href="/" aria-label="ডেমরা আইডিয়াল কলেজ — প্রচ্ছদ">'+(logo?'<img src="'+escape(logo)+'" alt="কলেজ লোগো">':'<span class="cms-seal">দি</span>')+'</a><button class="cms-menu-btn" type="button" aria-expanded="false" aria-controls="cms-navigation" aria-label="মেনু খুলুন">☰ মেনু</button><nav id="cms-navigation" class="cms-navigation" aria-label="প্রধান মেনু">'+nav+'</nav>'+admissionButton+'</div></header>';
+  }
   if(header){
    const btn=header.querySelector('.cms-menu-btn'),navigation=header.querySelector('nav');
    const closeDrops=except=>header.querySelectorAll('.cms-dropdown').forEach(d=>{if(d!==except){d.classList.remove('expanded');d.querySelector('button').setAttribute('aria-expanded','false')}});
