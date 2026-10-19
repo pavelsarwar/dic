@@ -223,3 +223,18 @@ main p,.section p,.cms-footer p{line-height:1.65}
 .dic-gallery-heading .dic-gallery-all-button{display:inline-flex;align-items:center;justify-content:center;padding:10px 19px;border-radius:9px;background:#216b40;color:#fff;text-decoration:none;font-weight:700;white-space:nowrap}
 .dic-gallery-heading .dic-gallery-all-button:hover{background:#174c2e;text-decoration:none}
 @media(max-width:450px){.dic-gallery-heading{align-items:flex-start;flex-direction:column}.dic-gallery-heading .dic-gallery-all-button{padding:9px 14px}}
+
+/* Photo-only galleries and responsive lightbox */
+.dic-home-gallery-item{border:0;padding:0;cursor:zoom-in;font:inherit}
+.dic-home-gallery-item span{display:none!important}
+.dic-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dic-gallery-photo{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;overflow:hidden;border-radius:13px;background:#e6ede7;cursor:zoom-in}
+.dic-gallery-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.dic-gallery-photo:hover img{transform:scale(1.035)}
+.dic-lightbox[hidden]{display:none!important}
+.dic-lightbox{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px}
+.dic-lightbox-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.88)}
+.dic-lightbox-content{position:relative;display:flex;align-items:center;justify-content:center;max-width:100%;max-height:100%}
+.dic-lightbox-content img{display:block;max-width:min(94vw,1400px);max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:5px}
+.dic-lightbox-close{position:absolute;top:0;right:0;transform:translate(35%,-40%);width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#1d2c22;font:normal 34px/1 Arial,sans-serif;cursor:pointer;z-index:1;box-shadow:0 2px 12px #0005}
+@media(max-width:700px){.dic-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dic-lightbox-content img{max-width:94vw;max-height:85vh}.dic-lightbox-close{transform:translate(10%,-65%)}}
