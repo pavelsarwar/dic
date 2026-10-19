@@ -164,3 +164,8 @@
 #principal .principal-read-more{display:inline-flex;align-items:center;background:#21683e;color:white;text-decoration:none;border-radius:8px;padding:9px 18px;font-weight:700}
 #principal .principal-read-more:hover{background:#174e30}
 @media(max-width:560px){#principal .person{flex-direction:column}#principal .principal-preview-photo{width:130px;max-width:100%;height:150px}}
+
+/* Readable justified paragraphs across public website, without affecting menus and labels */
+main p:not(.muted):not(.date):not(.principal-read-more),
+.dic-prose,.dic-page-body{text-align:justify;text-justify:inter-word}
+#resources .service-label{text-align:center}
