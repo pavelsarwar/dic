@@ -134,3 +134,8 @@
 /* Brand-consistent top bar and reliable vector contact pin */
 .cms-topbar{background:#174f35;color:#fff}
 .cms-contact-icon svg{display:block;flex:none;width:20px;height:20px}
+
+/* Compact homepage latest-notice strip */
+.noticebar[data-urgent-notice]{padding-top:4px;padding-bottom:4px}
+.noticebar[data-urgent-notice] strong{padding:4px 10px;line-height:1.35}
+.noticebar[data-urgent-notice] .wrap{min-height:0;gap:8px}
