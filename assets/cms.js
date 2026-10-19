@@ -18,6 +18,18 @@
   if(document.querySelector('[data-home-key]')){
    const homepage=s.homepage||{};
    document.querySelectorAll('[data-home-key]').forEach(el=>{const value=homepage[el.dataset.homeKey];if(typeof value==='string'&&value.trim())el.textContent=value});
+   // One source of truth: the published /principal page drives the homepage preview.
+   const principalPreview=document.getElementById('principalPreview');
+   if(principalPreview){
+    publicList('page').then(items=>{
+     const record=items.find(x=>x.slug==='principal');
+     if(!record)return;
+     const plain=String(record.body||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+     const excerpt=Array.from(plain).slice(0,290).join('');
+     const photo=record.image_url&&safeUrl(record.image_url)?'<img class="principal-preview-photo" src="'+escape(safeUrl(record.image_url))+'" alt="অধ্যক্ষের ছবি" loading="lazy">':'';
+     principalPreview.innerHTML=photo+'<div class="principal-preview-body"><p>'+escape(excerpt)+(Array.from(plain).length>290?'…':'')+'</p><a class="principal-read-more" href="/principal">বিস্তারিত পড়ুন →</a></div>';
+    }).catch(e=>console.warn('Principal preview unavailable',e));
+   }
    // Replace demonstration cards with approved published records when available.
    Promise.allSettled([publicList('notice'),publicList('news'),publicList('slide')]).then(results=>{
     const notices=results[0].status==='fulfilled'?results[0].value:[];
