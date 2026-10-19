@@ -39,3 +39,8 @@ body,button,input,textarea,select{font-family:'Anek Bangla',sans-serif}
 .dic-card-body p,
 .dic-main .dic-prose{text-align:justify;text-justify:inter-word;line-height:2}
 @media(max-width:600px){.dic-banner{padding:30px 0 34px}.dic-banner h1{font-size:30px}.dic-page .dic-prose{line-height:1.9}}
+
+/* Principal portrait: preserve a formal 4:5 photo instead of full-width cropped cover */
+body[data-page="principal"] .dic-page-cover{width:min(320px,calc(100% - 40px));height:auto;aspect-ratio:4/5;max-height:none;object-fit:contain;object-position:center;display:block;margin:30px auto 0;border-radius:14px;box-shadow:0 8px 25px #163d2820;background:#f3f6f3}
+body[data-page="principal"] .dic-page-body{padding-top:28px}
+@media(max-width:560px){body[data-page="principal"] .dic-page-cover{width:min(260px,calc(100% - 32px));margin-top:22px}}
