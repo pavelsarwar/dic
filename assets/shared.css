@@ -245,3 +245,11 @@ main p,.section p,.cms-footer p{line-height:1.65}
 .dic-stats-section .dic-stat>span{color:#386548}
 .dic-stats-section .dic-stat strong{color:#1a5034}
 .dic-stats-section .dic-stat em{color:#357d4c}
+
+/* Social links on the far right of the top header */
+.cms-top-meta{margin-left:auto}
+.cms-social-links{display:inline-flex;align-items:center;gap:9px;margin-left:14px;padding-left:14px;border-left:1px solid #ffffff55}
+.cms-social-links a{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;color:#fff;background:#ffffff20;transition:background .2s,transform .2s}
+.cms-social-links a:hover,.cms-social-links a:focus-visible{background:#ffffff40;transform:translateY(-2px)}
+.cms-social-links svg{width:16px;height:16px}
+@media(max-width:650px){.cms-top-meta{margin-left:0}.cms-social-links{margin-left:4px;padding-left:9px;gap:5px}.cms-social-links a{width:28px;height:28px}}
