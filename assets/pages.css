@@ -28,3 +28,14 @@ body,button,input,textarea,select{font-family:'Anek Bangla',sans-serif}
 .dic-breadcrumb,.dic-banner> .dic-wrap >p:first-child{display:flex;align-items:center;gap:10px;color:#e7f5e9;font-size:15px;line-height:1.7;font-weight:500}
 .dic-breadcrumb a{font-weight:700;color:#fff!important}
 .dic-prose{font-size:17px;line-height:2;color:#284536}
+
+/* Consistent centered inner-page hero and justified long-form Bengali copy */
+.dic-banner .dic-wrap{text-align:center}
+.dic-banner .dic-breadcrumb,
+.dic-banner .dic-wrap>p:first-child{justify-content:center;text-align:center}
+.dic-banner h1{text-align:center}
+.dic-page .dic-prose,
+.dic-page-body .dic-prose,
+.dic-card-body p,
+.dic-main .dic-prose{text-align:justify;text-justify:inter-word;line-height:2}
+@media(max-width:600px){.dic-banner{padding:30px 0 34px}.dic-banner h1{font-size:30px}.dic-page .dic-prose{line-height:1.9}}
