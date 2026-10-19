@@ -108,3 +108,20 @@
 .dic-stat strong{display:block;font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
 .dic-stat em{font-style:normal;color:#c5e6ad;font-size:.68em;margin-left:3px}
 @media(max-width:760px){.dic-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dic-stat{padding:22px 10px}.dic-stats-section{padding:40px 0}}
+
+/* Unified top contact strip and admission action */
+.cms-topbar{background:#123c8c;color:#fff}
+.cms-topbar .cms-shell{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:10px;padding-bottom:10px}
+.cms-top-contact,.cms-top-meta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.cms-top-contact a{color:#fff;text-decoration:none;font-weight:500}
+.cms-top-contact a:hover{text-decoration:underline}
+.cms-top-meta span{white-space:nowrap}
+.cms-admission-btn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;background:#166c43;color:#fff!important;border-radius:9px;padding:11px 16px;text-decoration:none;font-weight:700;font-size:15px;white-space:nowrap}
+.cms-admission-btn:hover{background:#0d5030}
+.cms-notice-link{font-weight:700;color:#205c39;text-decoration:none}
+.cms-notice-link:hover{text-decoration:underline}
+.noticebar[data-urgent-notice][hidden]{display:none!important}
+.noticebar [data-urgent-link]{font-weight:600;text-decoration:none;color:#1c5134}
+.noticebar [data-urgent-link]:hover{text-decoration:underline}
+@media(max-width:1080px){.cms-admission-btn{order:2;margin:0 0 12px}.cms-navigation{order:3}}
+@media(max-width:650px){.cms-topbar .cms-shell{align-items:flex-start;flex-direction:column;gap:6px}.cms-top-contact,.cms-top-meta{gap:9px;font-size:12px}}
