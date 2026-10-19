@@ -203,3 +203,18 @@ main p,.section p,.cms-footer p{line-height:1.65}
 #academic .department-detail span{font-size:16px;color:#50675b}
 #academic .department-detail strong{font-size:26px;color:#194d34;font-weight:700;font-variant-numeric:tabular-nums}
 @media(max-width:800px){#academic .department-grid{grid-template-columns:1fr;gap:14px}#academic .department-card h3{font-size:20px}#academic .department-detail{padding:14px 18px}}
+
+/* Gallery uses the same page width as other homepage sections, visually separate from footer */
+.dic-home-gallery{background:#f4f8f2;color:#193d2b;padding:58px 0 66px}
+.dic-gallery-heading{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:23px}
+.dic-gallery-heading h2{margin:0}
+.dic-gallery-heading>a{color:#216b40;font-weight:700;text-decoration:none}
+.dic-gallery-heading>a:hover{text-decoration:underline}
+.dic-home-gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.dic-home-gallery-item{display:block;position:relative;overflow:hidden;border-radius:13px;background:#e1e9df;aspect-ratio:4/3;text-decoration:none;color:#fff}
+.dic-home-gallery-item img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.dic-home-gallery-item:hover img{transform:scale(1.035)}
+.dic-home-gallery-item span{position:absolute;bottom:0;left:0;right:0;padding:30px 13px 12px;background:linear-gradient(transparent,#10291fc9);font-size:15px;font-weight:600}
+.dic-gallery-loading{grid-column:1/-1;padding:28px;background:#fff;border-radius:12px;color:#51695a}
+@media(max-width:700px){.dic-home-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dic-home-gallery{padding:40px 0}.dic-gallery-heading h2{font-size:26px}.dic-gallery-heading>a{font-size:14px}}
+@media(max-width:400px){.dic-home-gallery-grid{grid-template-columns:1fr}}
