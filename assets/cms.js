@@ -30,6 +30,13 @@
      principalPreview.innerHTML=photo+'<div class="principal-preview-body"><p>'+escape(excerpt)+(Array.from(plain).length>290?'…':'')+'</p><a class="principal-read-more" href="/principal">বিস্তারিত পড়ুন →</a></div>';
     }).catch(e=>console.warn('Principal preview unavailable',e));
    }
+   const galleryGrid=document.getElementById('homeGalleryGrid');
+   if(galleryGrid){
+    publicList('gallery').then(items=>{
+     const photos=items.filter(x=>x.image_url&&safeUrl(x.image_url)).slice(0,6);
+     galleryGrid.innerHTML=photos.length?photos.map(x=>'<a class="dic-home-gallery-item" href="/gallery" aria-label="'+escape(x.title||'ফটো গ্যালারি')+'"><img src="'+escape(safeUrl(x.image_url))+'" alt="'+escape(x.title||'কলেজের ছবি')+'" loading="lazy"><span>'+escape(x.title||'কলেজের ছবি')+'</span></a>').join(''):'<p class="dic-gallery-loading">এখনো কোনো ছবি প্রকাশিত হয়নি। <a href="/gallery">গ্যালারি দেখুন →</a></p>';
+    }).catch(()=>{galleryGrid.innerHTML='<p class="dic-gallery-loading">গ্যালারির ছবি এই মুহূর্তে লোড করা যাচ্ছে না।</p>';});
+   }
    // Replace demonstration cards with approved published records when available.
    Promise.allSettled([publicList('notice'),publicList('news'),publicList('slide')]).then(results=>{
     const notices=results[0].status==='fulfilled'?results[0].value:[];
