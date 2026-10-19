@@ -136,7 +136,7 @@ async function uploadMedia(file){
  const fd=new FormData();fd.append('image',file);
  const res=await fetch(api+'upload_image',{method:'POST',credentials:'same-origin',headers:{'X-CSRF-Token':token},body:fd});
  const raw=await res.text();let data;try{data=JSON.parse(raw)}catch{throw Error('Image upload failed (HTTP '+res.status+'). Check server upload limits and PHP logs.')}
- if(!res.ok)throw Error(data.error||'Image upload failed');return data.url;
+ if(res.status===401){status('Admin session expired. Please log in again, then retry the image upload.');show('login',true);show('dashboard',false);show('logout',false);throw Error('Admin login session expired. Log in again and retry uploading the slider image.')}if(res.status===403)throw Error('Upload security token expired. Refresh the Admin page, log in again, and retry.');if(!res.ok)throw Error(data.error||'Image upload failed');return data.url;
 }
 $('contentImageFile').addEventListener('change',async()=>{try{
  const file=$('contentImageFile').files[0];if(!file)return;
