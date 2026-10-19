@@ -15,7 +15,7 @@ function card(x,kind){
  return '<article class="dic-card dic-'+kind+'">'+img+'<div class="dic-card-body">'+date+'<h2>'+esc(x.title)+'</h2><p>'+esc(strip(x.body||''))+'</p>'+attachment+'</div></article>';
 }
 function page(x){
- root.innerHTML='<article class="dic-page">'+(x.image_url&&safe(x.image_url)?'<img class="dic-page-cover" src="'+esc(safe(x.image_url))+'" alt="">':'')+'<div class="dic-page-body"><h2>'+esc(x.title)+'</h2><div class="dic-prose">'+esc(x.body||'')+'</div>'+(x.attachment_url&&safe(x.attachment_url)?'<p><a href="'+esc(safe(x.attachment_url))+'">সংযুক্তি ডাউনলোড ↗</a></p>':'')+'</div></article>';
+ root.innerHTML='<article class="dic-page">'+(x.image_url&&safe(x.image_url)?'<img class="dic-page-cover" src="'+esc(safe(x.image_url))+'" alt="">':'')+'<div class="dic-page-body"><div class="dic-prose">'+esc(x.body||'')+'</div>'+(x.attachment_url&&safe(x.attachment_url)?'<p><a href="'+esc(safe(x.attachment_url))+'">সংযুক্তি ডাউনলোড ↗</a></p>':'')+'</div></article>';
 }
 function placeholder(){
  root.innerHTML='<div class="dic-empty"><h2>তথ্য শীঘ্রই প্রকাশিত হবে</h2><p>কলেজ কর্তৃপক্ষের অনুমোদিত তথ্য প্রকাশের পর এখানে দেখা যাবে।</p></div>';
