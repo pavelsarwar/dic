@@ -64,7 +64,12 @@
   }
   const fbFeed=document.getElementById('facebookFeed');
   if(fbFeed){
-   const fbUrl=String(s.layout?.social_facebook||'').trim();
+   const embed=String(s.layout?.facebook_embed_code||'');
+   let extracted='';
+   const hrefParam=embed.match(/[?&]href=([^&"'<>\s]+)/i);
+   if(hrefParam){try{extracted=decodeURIComponent(hrefParam[1].replace(/&amp;/g,'&'))}catch(e){}}
+   if(!extracted){const match=embed.match(/https:\/\/(?:www\.)?facebook\.com\/[^"'<>\s&]+/i);if(match)extracted=match[0];}
+   const fbUrl=String(extracted||s.layout?.social_facebook||'').trim();
    const fbLink=document.getElementById('facebookPageLink');
    if(/^https:\/\/(?:[a-z0-9-]+\.)*(?:facebook\.com|fb\.com)\//i.test(fbUrl)){
     if(fbLink){fbLink.href=fbUrl;fbLink.hidden=false}
