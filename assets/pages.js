@@ -30,6 +30,14 @@ document.addEventListener('DOMContentLoaded',async()=>{
   }else if(items.length){
    root.innerHTML='<div class="dic-list '+(key==='gallery'?'dic-gallery':'')+'">'+items.map(x=>card(x,key)).join('')+'</div>';
   }
+  if(key==='notices'){
+   const id=new URLSearchParams(location.search).get('notice');
+   if(id){
+    const selected=items.find(x=>String(x.id)===id);
+    if(selected){page(selected);const back=document.createElement('p');const link=document.createElement('a');link.href='/notices';link.textContent='← সব নোটিশ';back.append(link);root.prepend(back)}
+    else root.innerHTML='<div class="dic-empty"><h2>নোটিশ পাওয়া যায়নি</h2><p><a href="/notices">সব নোটিশ দেখুন</a></p></div>';
+   }
+  }
   // Page-specific settings for title and subtitle, if published page exists.
   if(type==='page'){
    const record=items.find(x=>x.slug===key);
