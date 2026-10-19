@@ -99,3 +99,12 @@
 .cms-topbar{background:#174f35;color:#f5fff6;font:500 13px/1.5 'Hind Siliguri',sans-serif}
 .cms-topbar .cms-shell{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:7px;padding-bottom:7px;flex-wrap:wrap}
 @media(max-width:600px){.cms-topbar .cms-shell{font-size:12px;gap:4px}}
+
+/* Homepage metrics: four responsive, accessible editorial counters */
+.dic-stats-section{padding:58px 0 70px;background:linear-gradient(115deg,#154a32,#236a45);color:#fff}
+.dic-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.dic-stat{padding:26px 18px;text-align:center;border:1px solid #ffffff30;border-radius:15px;background:#ffffff0d}
+.dic-stat>span{display:block;color:#d9eddf;font-size:16px;font-weight:600;margin-bottom:10px}
+.dic-stat strong{display:block;font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+.dic-stat em{font-style:normal;color:#c5e6ad;font-size:.68em;margin-left:3px}
+@media(max-width:760px){.dic-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dic-stat{padding:22px 10px}.dic-stats-section{padding:40px 0}}
