@@ -18,3 +18,13 @@ body{margin:0;background:#f6faf5;color:#1c4330;font-family:'Anek Bangla',sans-se
 .dic-empty{max-width:850px;margin:auto;background:white;border:1px solid #e2eae3;border-radius:16px;padding:42px;text-align:center;color:#62776b}
 .dic-empty h2{color:#255b3b}
 @media(max-width:760px){.dic-list,.dic-list.dic-gallery{grid-template-columns:1fr}.dic-page-body{padding:25px}.dic-gallery .dic-card img{height:auto}}
+
+/* Consistent Anek Bangla typography and readable breadcrumbs across pages */
+body,button,input,textarea,select{font-family:'Anek Bangla',sans-serif}
+.dic-banner{padding:38px 0 42px}
+.dic-banner h1{line-height:1.45;font-weight:700;margin:10px 0 0}
+.dic-banner a,.dic-banner a:visited{color:#fff!important;text-decoration:none;opacity:1}
+.dic-banner a:hover{text-decoration:underline}
+.dic-breadcrumb,.dic-banner> .dic-wrap >p:first-child{display:flex;align-items:center;gap:10px;color:#e7f5e9;font-size:15px;line-height:1.7;font-weight:500}
+.dic-breadcrumb a{font-weight:700;color:#fff!important}
+.dic-prose{font-size:17px;line-height:2;color:#284536}
