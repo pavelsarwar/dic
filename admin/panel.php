@@ -45,7 +45,7 @@ const fieldsByType={
  page:['title','slug','body','image_url','sort_order'],
  teacher:['title','designation','subject','department','image_url','sort_order'],
  slide:['title','body','image_url','sort_order'],
- gallery:['title','body','image_url','sort_order'],
+ gallery:['title','image_url','sort_order'],
  notice:['title','body','attachment_url','sort_order'],
  news:['title','body','image_url','attachment_url','sort_order'],
  event:['title','body','image_url','attachment_url','sort_order'],
@@ -64,11 +64,12 @@ const editorHints={
 function configureEditor(){
  const fields=fieldsByType[type]||fieldsByType.notice;
  document.querySelectorAll('[data-field]').forEach(el=>el.classList.toggle('hidden',!fields.includes(el.dataset.field)));
- $('heading').textContent=types[type]+' · '+(type==='page'?'Page Editor':type==='teacher'?'Profile Editor':type==='slide'?'Slider Editor':'Post Editor');
+ $('heading').textContent=types[type]+' · '+(type==='gallery'?'Single Photo Editor':type==='page'?'Page Editor':type==='teacher'?'Profile Editor':type==='slide'?'Slider Editor':'Post Editor');
  $('contentHint').textContent=editorHints[type]||'এই বিভাগের নতুন Post তৈরি করুন বা বিদ্যমান Post পরিবর্তন করুন।';
- $('titleLabel').textContent=type==='teacher'?'শিক্ষকের নাম':type==='page'?'পেজের শিরোনাম':type==='slide'?'স্লাইড শিরোনাম':'পোস্টের শিরোনাম';
+ $('titleLabel').textContent=type==='gallery'?'ছবির নাম (শুধু Admin-এ দেখা যাবে)':type==='teacher'?'শিক্ষকের নাম':type==='page'?'পেজের শিরোনাম':type==='slide'?'স্লাইড শিরোনাম':'পোস্টের শিরোনাম';
  $('bodyLabel').textContent=type==='page'?'Page Content':type==='slide'?'Slide Description':'বিস্তারিত বিবরণ';
  $('slug').placeholder=type==='page'?'about / principal / contact':'optional-url-slug';
+ if(type==='gallery')$('contentHint').textContent='একটি ছবি আলাদাভাবে যোগ বা Edit করতে এই Form ব্যবহার করুন। একসঙ্গে অনেক ছবি Upload করতে নিচের + Add Photos ব্যবহার করুন। ছবির নাম Website-এ দেখাবে না।';
 }
 const homepageLabels={dept_science_gpa:'বিজ্ঞান বিভাগ — ভর্তির ন্যূনতম GPA',dept_science_seats:'বিজ্ঞান বিভাগ — আসনসংখ্যা',dept_business_gpa:'ব্যবসায় শিক্ষা বিভাগ — ভর্তির ন্যূনতম GPA',dept_business_seats:'ব্যবসায় শিক্ষা বিভাগ — আসনসংখ্যা',dept_humanities_gpa:'মানবিক বিভাগ — ভর্তির ন্যূনতম GPA',dept_humanities_seats:'মানবিক বিভাগ — আসনসংখ্যা',hero1_title:'ব্যানার ১ — শিরোনাম',hero1_text:'ব্যানার ১ — বিবরণ',hero2_title:'ব্যানার ২ — শিরোনাম',hero2_text:'ব্যানার ২ — বিবরণ',hero3_title:'ব্যানার ৩ — শিরোনাম',hero3_text:'ব্যানার ৩ — বিবরণ',about_title:'কলেজ পরিচিতি — শিরোনাম',about_text:'কলেজ পরিচিতি — বিবরণ',principal_title:'অধ্যক্ষের বাণী — শিরোনাম',principal_text:'অধ্যক্ষের বাণী — বিবরণ',admission_text:'ভর্তি — বিবরণ',stat1_label:'পরিসংখ্যান ১ — নাম',stat1_value:'পরিসংখ্যান ১ — সংখ্যা',stat1_suffix:'পরিসংখ্যান ১ — + / suffix',stat2_label:'পরিসংখ্যান ২ — নাম',stat2_value:'পরিসংখ্যান ২ — সংখ্যা',stat2_suffix:'পরিসংখ্যান ২ — + / suffix',stat3_label:'পরিসংখ্যান ৩ — নাম',stat3_value:'পরিসংখ্যান ৩ — সংখ্যা',stat3_suffix:'পরিসংখ্যান ৩ — + / suffix',stat4_label:'পরিসংখ্যান ৪ — নাম',stat4_value:'পরিসংখ্যান ৪ — সংখ্যা',stat4_suffix:'পরিসংখ্যান ৪ — + / suffix'};
 function setView(){
