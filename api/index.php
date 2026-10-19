@@ -91,7 +91,7 @@ if ($action==='save_settings' && $method==='POST') {
  } elseif ($key==='contact') {
   $value=['address'=>mb_substr(trim((string)($value['address']??'')),0,300),'email'=>mb_substr(trim((string)($value['email']??'')),0,190),'phone'=>mb_substr(trim((string)($value['phone']??'')),0,80)];
   } elseif ($key==='layout') {
-  $allowed=['header_notice','header_notice_active','footer_about','footer_copyright','footer_email','footer_phone','footer_links_title','footer_logo','top_motto','top_eiin','top_language','topbar_active','footer_links','top_college_code','admission_button_label','admission_button_url','admission_button_active','urgent_title','urgent_active'];
+  $allowed=['header_notice','header_notice_active','footer_about','footer_copyright','footer_email','footer_phone','footer_links_title','footer_logo','top_motto','top_eiin','top_language','topbar_active','footer_links','top_college_code','social_facebook','social_instagram','social_youtube','admission_button_label','admission_button_url','admission_button_active','urgent_title','urgent_active'];
   $clean=[];foreach($allowed as $field){
    if(!array_key_exists($field,$value))continue;
    $raw=$value[$field];
@@ -104,6 +104,13 @@ if ($action==='save_settings' && $method==='POST') {
      if($label===''||mb_strlen($label)>80||!preg_match('~^/(?:[a-zA-Z0-9/_#-]*)$~',$url))respond(['error'=>'Use a label and a local /page URL'],400);
      $links[]=['label'=>$label,'url'=>$url,'active'=>!empty($item['active'])];
     }$clean[$field]=$links;continue;
+   }
+   if(in_array($field,['social_facebook','social_instagram','social_youtube'],true)&&$raw!==''){
+    if(!is_string($raw)||!filter_var($raw,FILTER_VALIDATE_URL)||strtolower((string)parse_url($raw,PHP_URL_SCHEME))!=='https')respond(['error'=>'Social media URL must use HTTPS'],400);
+    $host=strtolower((string)parse_url($raw,PHP_URL_HOST));
+    $allowedHosts=['social_facebook'=>['facebook.com','fb.com','fb.me'],'social_instagram'=>['instagram.com'],'social_youtube'=>['youtube.com','youtu.be']];
+    $valid=false;foreach($allowedHosts[$field] as $domain){if($host===$domain||str_ends_with($host,'.'.$domain)){$valid=true;break;}}
+    if(!$valid)respond(['error'=>'Please use the matching official social platform URL'],400);
    }
    if($field==='admission_button_url' && $raw!=='' && (!is_string($raw)||!filter_var($raw,FILTER_VALIDATE_URL)||parse_url($raw,PHP_URL_SCHEME)!=='https'))respond(['error'=>'Online Admission URL must be HTTPS'],400);
    if(!is_string($raw)||mb_strlen($raw)>500)respond(['error'=>'Invalid header/footer field'],400);
