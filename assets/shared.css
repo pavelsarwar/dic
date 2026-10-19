@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&display=swap');
 /* Unified responsive college navigation */
-.cms-header{position:sticky;top:0;z-index:100;background:#fff;color:#245a36;box-shadow:0 4px 22px #153c2814;font-family:'Noto Sans Bengali',sans-serif}
+.cms-header{position:sticky;top:0;z-index:100;background:#fff;color:#245a36;box-shadow:0 4px 22px #153c2814;font-family:'Anek Bangla',sans-serif}
 .cms-shell{max-width:1200px;margin:auto;padding:0 20px}
 .cms-header .cms-shell{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .cms-brand{display:flex;align-items:center;gap:12px;min-width:0;flex-shrink:0;font-size:21px;font-weight:700;text-decoration:none;color:#245a36;line-height:1.25}
@@ -8,16 +8,16 @@
 .cms-seal{display:grid;place-items:center;border-radius:50%;background:#79ac3d;color:white}
 .cms-brand small{display:block;font-size:12px;color:#6b8071;font-weight:400;margin-top:3px}
 .cms-navigation{display:flex;align-items:center;justify-content:flex-end;gap:3px}
-.cms-navigation a,.cms-drop-trigger{display:flex;align-items:center;gap:5px;white-space:nowrap;padding:12px 10px;border:0;border-radius:8px;background:transparent;color:#285a36;text-decoration:none;font:600 14px 'Noto Sans Bengali',sans-serif;cursor:pointer}
+.cms-navigation a,.cms-drop-trigger{display:flex;align-items:center;gap:5px;white-space:nowrap;padding:12px 10px;border:0;border-radius:8px;background:transparent;color:#285a36;text-decoration:none;font:600 14px 'Anek Bangla',sans-serif;cursor:pointer}
 .cms-navigation a:hover,.cms-drop-trigger:hover,.cms-navigation a[aria-current="page"]{background:#eef6e8;color:#17672d}
 .cms-dropdown{position:relative}
 .cms-submenu{display:none;position:absolute;top:100%;left:0;min-width:215px;background:#fff;border:1px solid #e3eadd;border-radius:12px;padding:7px;box-shadow:0 16px 36px #123b2626;z-index:120}
 .cms-dropdown:last-child .cms-submenu{left:auto;right:0}
 .cms-submenu a{padding:10px 13px;white-space:normal}
 .cms-dropdown:hover .cms-submenu,.cms-dropdown:focus-within .cms-submenu,.cms-dropdown.expanded .cms-submenu{display:block}
-.cms-menu-btn{display:none;border:1px solid #d6e3d0;border-radius:8px;background:#f5faf2;padding:9px 13px;font:600 15px 'Noto Sans Bengali',sans-serif;color:#285a36;cursor:pointer}
+.cms-menu-btn{display:none;border:1px solid #d6e3d0;border-radius:8px;background:#f5faf2;padding:9px 13px;font:600 15px 'Anek Bangla',sans-serif;color:#285a36;cursor:pointer}
 .cms-header a:focus-visible,.cms-header button:focus-visible{outline:3px solid #d3a931;outline-offset:2px}
-.cms-footer{background:#285a36;color:#e1efe6;padding:30px 0;font-family:'Noto Sans Bengali',sans-serif}
+.cms-footer{background:#285a36;color:#e1efe6;padding:30px 0;font-family:'Anek Bangla',sans-serif}
 .cms-footer .cms-shell{display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap}
 @media(max-width:1080px){
  .cms-header .cms-shell{min-height:74px;flex-wrap:wrap;gap:10px}
@@ -76,7 +76,7 @@
  .cms-header .cms-shell{min-height:90px}
 }
 
-.cms-announcement{background:#145b3c;color:#fff;text-align:center;padding:8px 16px;font:500 14px/1.6 'Noto Sans Bengali',sans-serif}
+.cms-announcement{background:#145b3c;color:#fff;text-align:center;padding:8px 16px;font:500 14px/1.6 'Anek Bangla',sans-serif}
 .cms-footer{padding:42px 0 18px}
 .cms-footer .cms-footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px}
 .cms-footer-grid>div{min-width:0}
@@ -97,7 +97,7 @@
 .cms-footer .cms-footer-bottom{max-width:none;width:100%;background:#123e2b;border-top:1px solid #ffffff1c;margin-top:28px;padding:15px 20px;color:#f2f7f3;text-align:center;display:block}
 @media(max-width:700px){.cms-footer .cms-footer-grid{gap:16px}.cms-footer .cms-footer-bottom{margin-top:20px}}
 
-.cms-topbar{background:#174f35;color:#f5fff6;font:500 13px/1.5 'Noto Sans Bengali',sans-serif}
+.cms-topbar{background:#174f35;color:#f5fff6;font:500 13px/1.5 'Anek Bangla',sans-serif}
 .cms-topbar .cms-shell{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:7px;padding-bottom:7px;flex-wrap:wrap}
 @media(max-width:600px){.cms-topbar .cms-shell{font-size:12px;gap:4px}}
 
