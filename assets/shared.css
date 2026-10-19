@@ -139,3 +139,19 @@
 .noticebar[data-urgent-notice]{padding-top:4px;padding-bottom:4px}
 .noticebar[data-urgent-notice] strong{padding:4px 10px;line-height:1.35}
 .noticebar[data-urgent-notice] .wrap{min-height:0;gap:8px}
+
+/* Homepage service cards: icon above centered Bangla text */
+#resources .actionGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+#resources .actionGrid a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:17px;min-height:220px;padding:24px 12px;border:1px solid #b8dcfa;border-bottom-width:1px;border-radius:20px;background:linear-gradient(145deg,#edf7ff,#f7fbff);box-shadow:none;color:#142b3a;text-align:center;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+#resources .actionGrid a:nth-child(2){background:linear-gradient(145deg,#eafcf0,#f4fff8);border-color:#b4ecc8}
+#resources .actionGrid a:nth-child(3){background:linear-gradient(145deg,#fff6e9,#fffaf2);border-color:#ffdab0}
+#resources .actionGrid a:nth-child(4){background:linear-gradient(145deg,#f0efff,#f8f7ff);border-color:#cbc4ff}
+#resources .actionGrid a:hover{transform:translateY(-4px);box-shadow:0 12px 25px #1c3d271a}
+#resources .actionGrid .service-icon{display:block;width:78px;height:78px;color:#2b7fe9}
+#resources .actionGrid a:nth-child(2) .service-icon{color:#16a679}
+#resources .actionGrid a:nth-child(3) .service-icon{color:#f18a19}
+#resources .actionGrid a:nth-child(4) .service-icon{color:#777ed2}
+#resources .actionGrid .service-icon svg{display:block;width:100%;height:100%}
+#resources .actionGrid .service-label{display:block;color:#17252e;font-size:19px;line-height:1.5;font-weight:700}
+@media(max-width:800px){#resources .actionGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#resources .actionGrid a{min-height:175px;padding:17px 8px}#resources .actionGrid .service-icon{width:60px;height:60px}#resources .actionGrid .service-label{font-size:16px}}
+@media(max-width:380px){#resources .actionGrid .service-label{font-size:14px}}
