@@ -95,3 +95,7 @@
 .cms-footer-logo{display:block;width:auto;max-width:190px;max-height:100px;object-fit:contain;object-position:left center;margin:0 0 12px}
 .cms-footer .cms-footer-bottom{max-width:none;width:100%;background:#123e2b;border-top:1px solid #ffffff1c;margin-top:28px;padding:15px 20px;color:#f2f7f3;text-align:center;display:block}
 @media(max-width:700px){.cms-footer .cms-footer-grid{gap:16px}.cms-footer .cms-footer-bottom{margin-top:20px}}
+
+.cms-topbar{background:#174f35;color:#f5fff6;font:500 13px/1.5 'Hind Siliguri',sans-serif}
+.cms-topbar .cms-shell{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:7px;padding-bottom:7px;flex-wrap:wrap}
+@media(max-width:600px){.cms-topbar .cms-shell{font-size:12px;gap:4px}}
