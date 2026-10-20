@@ -73,22 +73,28 @@
    const fbLink=document.getElementById('facebookPageLink');
    if(/^https:\/\/(?:[a-z0-9-]+\.)*(?:facebook\.com|fb\.com)\//i.test(fbUrl)){
     if(fbLink){fbLink.href=fbUrl;fbLink.hidden=false}
-    const frame=document.createElement('iframe');
-    frame.title='ডেমরা আইডিয়াল কলেজ — ফেইসবুক আপডেট';
-    frame.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fbUrl)+'&tabs=timeline&width=500&height=540&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false';
-    frame.width='500';frame.height='540';frame.style.border='none';frame.loading='lazy';frame.allow='encrypted-media';frame.referrerPolicy='strict-origin-when-cross-origin';
-    const feedWrap=document.createElement('div');
-    feedWrap.className='dic-facebook-frame-wrap';
-    const fallback=document.createElement('div');
-    fallback.className='dic-facebook-fallback';
-    const fallbackText=document.createElement('p');
-    fallbackText.textContent='এখানে ফেইসবুক পোস্ট দেখা না গেলে সরাসরি আমাদের অফিসিয়াল পেজে দেখুন।';
-    const fallbackLink=document.createElement('a');
-    fallbackLink.href=fbUrl;fallbackLink.target='_blank';fallbackLink.rel='noopener noreferrer';
-    fallbackLink.textContent='ফেইসবুকে সর্বশেষ পোস্ট দেখুন ↗';
-    fallback.append(fallbackText,fallbackLink);
-    feedWrap.append(frame,fallback);
-    fbFeed.replaceChildren(feedWrap);
+    fbFeed.replaceChildren();
+    const feedList=document.createElement('div');feedList.className='dic-facebook-posts';
+    const status=document.createElement('p');status.textContent='ফেইসবুক পোস্ট লোড হচ্ছে…';
+    feedList.append(status);fbFeed.append(feedList);
+    fetch('/api/index.php?action=facebook_posts',{credentials:'same-origin'}).then(r=>r.json()).then(data=>{
+     feedList.replaceChildren();
+     if(!Array.isArray(data.items)||!data.items.length){
+      const note=document.createElement('p');
+      note.textContent=data.status==='not_configured'?'Facebook Graph API সংযোগ এখনো সেটআপ করা হয়নি।':'এই মুহূর্তে ফেইসবুক পোস্ট দেখানো যাচ্ছে না।';
+      feedList.append(note);
+     }else data.items.slice(0,3).forEach(post=>{
+      const card=document.createElement('article');card.className='dic-facebook-post';
+      if(post.picture&&safeUrl(post.picture)){const img=document.createElement('img');img.src=post.picture;img.alt='ফেইসবুক পোস্টের ছবি';img.loading='lazy';card.append(img)}
+      const content=document.createElement('div');content.className='dic-facebook-post-content';
+      if(post.created_time){const date=document.createElement('time');const parsed=new Date(post.created_time);if(!isNaN(parsed)){date.dateTime=post.created_time;date.textContent=parsed.toLocaleDateString('bn-BD',{day:'numeric',month:'short',year:'numeric'});content.append(date)}}
+      if(post.message){const body=document.createElement('p');body.textContent=post.message.length>240?post.message.slice(0,240)+'…':post.message;content.append(body)}
+      if(post.permalink_url){const link=document.createElement('a');link.href=post.permalink_url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='ফেইসবুকে পোস্ট দেখুন ↗';content.append(link)}
+      card.append(content);feedList.append(card);
+     });
+     const all=document.createElement('a');all.className='dic-facebook-view-all';all.href=fbUrl;all.target='_blank';all.rel='noopener noreferrer';all.textContent='ফেইসবুকে সব পোস্ট দেখুন ↗';feedList.append(all);
+    }).catch(()=>{feedList.replaceChildren();const note=document.createElement('p');note.textContent='পোস্ট লোড করা যায়নি।';feedList.append(note);const link=document.createElement('a');link.href=fbUrl;link.target='_blank';link.rel='noopener noreferrer';link.textContent='ফেইসবুক পেজ দেখুন ↗';feedList.append(link)});
+
    }
   }
   const brand=escape(s.identity?.name||'ডেমরা আইডিয়াল কলেজ');
