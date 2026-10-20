@@ -176,6 +176,27 @@ if ($action==='save_settings' && $method==='POST') {
  $q->execute([$key,json_encode($value,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)]);
  respond(['ok'=>true]);
 }
+if ($action==='upload_pdf' && $method==='POST') {
+ csrf();
+ try {
+  if(!isset($_FILES['pdf']))respond(['error'=>'No PDF received. Check PHP post_max_size.'],400);
+  $file=$_FILES['pdf'];$err=(int)($file['error']??UPLOAD_ERR_NO_FILE);
+  if($err!==UPLOAD_ERR_OK)respond(['error'=>'PDF upload error '.$err.'; check PHP upload limits'],400);
+  if(($file['size']??0)<1||$file['size']>10485760)respond(['error'=>'PDF must be under 10 MB'],400);
+  $tmp=$file['tmp_name']??'';
+  if(!is_uploaded_file($tmp))respond(['error'=>'Invalid uploaded file'],400);
+  if(!class_exists('finfo'))respond(['error'=>'Server file validation unavailable'],500);
+  $mime=(new finfo(FILEINFO_MIME_TYPE))->file($tmp);
+  $handle=@fopen($tmp,'rb');$signature=$handle?fread($handle,5):'';if($handle)fclose($handle);
+  if($mime!=='application/pdf'||$signature!=='%PDF-')respond(['error'=>'Only valid PDF files are allowed'],400);
+  $dir=dirname(__DIR__).'/uploads/media';
+  if(!is_dir($dir)&&!@mkdir($dir,0755,true)&&!is_dir($dir))respond(['error'=>'Upload folder cannot be created'],500);
+  if(!is_writable($dir))respond(['error'=>'Upload folder is not writable'],500);
+  $name=bin2hex(random_bytes(16)).'.pdf';
+  if(!@move_uploaded_file($tmp,$dir.'/'.$name))respond(['error'=>'PDF could not be saved'],500);
+  respond(['ok'=>true,'url'=>'https://demraidealcollege.edu.bd/uploads/media/'.$name]);
+ }catch(Throwable $e){error_log('DIC PDF upload: '.$e->getMessage());respond(['error'=>'PDF upload server error'],500);}
+}
 if ($action==='upload_image' && $method==='POST') {
  csrf();
  try {
