@@ -69,7 +69,7 @@
    const hrefParam=embed.match(/[?&]href=([^&"'<>\s]+)/i);
    if(hrefParam){try{extracted=decodeURIComponent(hrefParam[1].replace(/&amp;/g,'&'))}catch(e){}}
    if(!extracted){const match=embed.match(/https:\/\/(?:www\.)?facebook\.com\/[^"'<>\s&]+/i);if(match)extracted=match[0];}
-   const fbUrl=String(extracted||s.layout?.social_facebook||'').trim();
+   const fbUrl=String(extracted||s.layout?.social_facebook||'https://www.facebook.com/demraidealcollege').trim();
    const fbLink=document.getElementById('facebookPageLink');
    if(/^https:\/\/(?:[a-z0-9-]+\.)*(?:facebook\.com|fb\.com)\//i.test(fbUrl)){
     if(fbLink){fbLink.href=fbUrl;fbLink.hidden=false}
@@ -122,11 +122,11 @@
     social_youtube:'<rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="m10 9 6 3-6 3z"/>'
    };
    const socialLinks=[['social_facebook','Facebook'],['social_instagram','Instagram'],['social_youtube','YouTube']].map(([key,label])=>{
-    const url=String(layout[key]||'').trim();if(!/^https:\/\//i.test(url))return '';
+    const url=String(layout[key]||(key==='social_facebook'?'https://www.facebook.com/demraidealcollege':'')).trim();if(!/^https:\/\//i.test(url))return '';
     return '<a href="'+escape(url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+label+'" title="'+label+'"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'+socialIcons[key]+'</svg></a>';
    }).join('');
    const socialBlock=socialLinks?'<div class="cms-social-links">'+socialLinks+'</div>':'';
-   header.innerHTML=(layout.topbar_active===false?'':'<div class="cms-topbar"><div class="cms-shell"><div class="cms-top-contact">'+topContact+'</div><div class="cms-top-meta">'+topMeta+'</div></div></div>')+'<header class="cms-header"><div class="cms-shell"><a class="cms-brand" href="/" aria-label="ডেমরা আইডিয়াল কলেজ — প্রচ্ছদ">'+(logo?'<img src="'+escape(logo)+'" alt="কলেজ লোগো">':'<span class="cms-seal">দি</span>')+'</a><button class="cms-menu-btn" type="button" aria-expanded="false" aria-controls="cms-navigation" aria-label="মেনু খুলুন">☰ মেনু</button><nav id="cms-navigation" class="cms-navigation" aria-label="প্রধান মেনু">'+nav+'</nav>'+admissionButton+'</div></header>';
+   header.innerHTML=(layout.topbar_active===false?'':'<div class="cms-topbar"><div class="cms-shell"><div class="cms-top-contact">'+topContact+'</div><div class="cms-top-meta">'+topMeta+socialBlock+'</div></div></div>')+'<header class="cms-header"><div class="cms-shell"><a class="cms-brand" href="/" aria-label="ডেমরা আইডিয়াল কলেজ — প্রচ্ছদ">'+(logo?'<img src="'+escape(logo)+'" alt="কলেজ লোগো">':'<span class="cms-seal">দি</span>')+'</a><button class="cms-menu-btn" type="button" aria-expanded="false" aria-controls="cms-navigation" aria-label="মেনু খুলুন">☰ মেনু</button><nav id="cms-navigation" class="cms-navigation" aria-label="প্রধান মেনু">'+nav+'</nav>'+admissionButton+'</div></header>';
   }
   if(header){
    const btn=header.querySelector('.cms-menu-btn'),navigation=header.querySelector('nav');
