@@ -18,6 +18,20 @@
   if(document.querySelector('[data-home-key]')){
    const homepage=s.homepage||{};
    document.querySelectorAll('[data-home-key]').forEach(el=>{const value=homepage[el.dataset.homeKey];if(typeof value==='string'&&value.trim())el.textContent=value});
+   // Never show empty statistical values as large dashes or misleading demo figures.
+   const statsSection=document.getElementById('collegeStats');
+   if(statsSection){
+    const entries=Array.from(statsSection.querySelectorAll('.dic-stat'));
+    entries.forEach(card=>{
+     const number=card.querySelector('[data-home-key$="_value"]');
+     const label=card.querySelector('[data-home-key$="_label"]');
+     const key=number?.dataset.homeKey;
+     const configured=key&&String(homepage[key]??'').trim();
+     card.hidden=!configured;
+     if(configured&&label&&!String(homepage[label.dataset.homeKey]??'').trim())label.textContent='কলেজের পরিসংখ্যান';
+    });
+    statsSection.hidden=!entries.some(card=>!card.hidden);
+   }
    // One source of truth: the published /principal page drives the homepage preview.
    const principalPreview=document.getElementById('principalPreview');
    if(principalPreview){
