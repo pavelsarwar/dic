@@ -77,7 +77,18 @@
     frame.title='ডেমরা আইডিয়াল কলেজ — ফেইসবুক আপডেট';
     frame.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fbUrl)+'&tabs=timeline&width=500&height=540&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false';
     frame.width='500';frame.height='540';frame.style.border='none';frame.loading='lazy';frame.allow='encrypted-media';frame.referrerPolicy='strict-origin-when-cross-origin';
-    fbFeed.replaceChildren(frame);
+    const feedWrap=document.createElement('div');
+    feedWrap.className='dic-facebook-frame-wrap';
+    const fallback=document.createElement('div');
+    fallback.className='dic-facebook-fallback';
+    const fallbackText=document.createElement('p');
+    fallbackText.textContent='এখানে ফেইসবুক পোস্ট দেখা না গেলে সরাসরি আমাদের অফিসিয়াল পেজে দেখুন।';
+    const fallbackLink=document.createElement('a');
+    fallbackLink.href=fbUrl;fallbackLink.target='_blank';fallbackLink.rel='noopener noreferrer';
+    fallbackLink.textContent='ফেইসবুকে সর্বশেষ পোস্ট দেখুন ↗';
+    fallback.append(fallbackText,fallbackLink);
+    feedWrap.append(frame,fallback);
+    fbFeed.replaceChildren(feedWrap);
    }
   }
   const brand=escape(s.identity?.name||'ডেমরা আইডিয়াল কলেজ');
