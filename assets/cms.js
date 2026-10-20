@@ -75,11 +75,29 @@
     if(fbLink){fbLink.href=fbUrl;fbLink.hidden=false}
     const card=document.createElement('div');card.className='dic-facebook-page-card';
     const emblem=document.createElement('div');emblem.className='dic-facebook-page-emblem';emblem.textContent='f';emblem.setAttribute('aria-hidden','true');
+    const content=document.createElement('div');content.className='dic-facebook-page-info';
     const name=document.createElement('h4');name.textContent='ডেমরা আইডিয়াল কলেজ';
-    const desc=document.createElement('p');desc.textContent='কলেজের সর্বশেষ খবর, ছবি, অনুষ্ঠান ও গুরুত্বপূর্ণ আপডেট জানতে আমাদের অফিসিয়াল ফেইসবুক পেজে ভিজিট করুন।';
-    const action=document.createElement('a');action.className='dic-facebook-page-button';action.href=fbUrl;action.target='_blank';action.rel='noopener noreferrer';action.textContent='ফেইসবুকে সর্বশেষ পোস্ট দেখুন ↗';
-    card.append(emblem,name,desc,action);
-    fbFeed.replaceChildren(card);
+    const desc=document.createElement('p');desc.textContent='সর্বশেষ আপডেট ও কলেজের কার্যক্রম';
+    const action=document.createElement('a');action.className='dic-facebook-page-button';action.href=fbUrl;action.target='_blank';action.rel='noopener noreferrer';action.textContent='ফেইসবুক পেজ দেখুন ↗';
+    content.append(name,desc,action);card.append(emblem,content);fbFeed.replaceChildren(card);
+   }
+  }
+  const youtubeRoot=document.getElementById('youtubeVideo');
+  if(youtubeRoot){
+   const channel=String(s.layout?.social_youtube||'').trim();
+   const channelLink=document.getElementById('youtubeChannelLink');
+   if(/^https:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\//i.test(channel)&&channelLink){channelLink.href=channel;channelLink.hidden=false}
+   const video=String(s.layout?.homepage_youtube_video||'').trim();
+   let videoId='';
+   try{const url=new URL(video);const host=url.hostname.toLowerCase();if(host==='youtu.be')videoId=url.pathname.split('/')[1]||'';else if(['youtube.com','www.youtube.com','m.youtube.com'].includes(host)){videoId=url.searchParams.get('v')||'';if(!videoId&&url.pathname.startsWith('/shorts/'))videoId=url.pathname.split('/')[2]||'';if(!videoId&&url.pathname.startsWith('/embed/'))videoId=url.pathname.split('/')[2]||'';}}catch(e){}
+   if(/^[A-Za-z0-9_-]{11}$/.test(videoId)){
+    const frame=document.createElement('iframe');frame.title='ডেমরা আইডিয়াল কলেজ — ইউটিউব ভিডিও';frame.src='https://www.youtube-nocookie.com/embed/'+videoId;frame.loading='lazy';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;youtubeRoot.replaceChildren(frame);
+   }else{
+    youtubeRoot.replaceChildren();
+    const icon=document.createElement('span');icon.className='dic-youtube-play';icon.textContent='▶';icon.setAttribute('aria-hidden','true');
+    const hint=document.createElement('p');hint.textContent='কলেজের ভিডিও দেখতে আমাদের ইউটিউব চ্যানেল ভিজিট করুন।';
+    youtubeRoot.append(icon,hint);
+    if(/^https:\/\/(?:www\.)?youtube\.com\//i.test(channel)){const link=document.createElement('a');link.href=channel;link.target='_blank';link.rel='noopener noreferrer';link.textContent='ইউটিউব চ্যানেল দেখুন ↗';youtubeRoot.append(link)}
    }
   }
   const brand=escape(s.identity?.name||'ডেমরা আইডিয়াল কলেজ');
