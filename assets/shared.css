@@ -297,3 +297,14 @@ main p,.section p,.cms-footer p{line-height:1.65}
 #news .dic-facebook-fallback p{margin:0 0 10px;padding:0;font-size:13px;line-height:1.5;color:#4c6454}
 #news .dic-facebook-fallback a{display:inline-flex;align-items:center;justify-content:center;background:#176b43;color:white;border-radius:8px;padding:10px 15px;text-decoration:none;font-size:14px;font-weight:700}
 #news .dic-facebook-fallback a:hover{background:#105032}
+
+/* Native Facebook Graph API feed cards */
+#news .dic-facebook-feed{display:block;min-height:0;padding:0;background:transparent;border:0;text-align:left}
+#news .dic-facebook-posts{display:grid;gap:12px;width:100%}
+#news .dic-facebook-post{overflow:hidden;border:1px solid #e2ebdd;border-radius:12px;background:#f8fbf6}
+#news .dic-facebook-post img{display:block;width:100%;max-height:220px;object-fit:cover}
+#news .dic-facebook-post-content{padding:14px 17px}
+#news .dic-facebook-post-content time{display:block;font-size:12px;color:#63776a;margin-bottom:6px}
+#news .dic-facebook-post-content p{padding:0;margin:0 0 10px;color:#304d3b;font-size:14px;line-height:1.6;white-space:pre-line}
+#news .dic-facebook-post-content a,#news .dic-facebook-view-all{font-size:14px;color:#19683e;font-weight:700;text-decoration:none}
+#news .dic-facebook-view-all{display:block;text-align:center;background:#eef5e8;padding:13px;border-radius:10px}
