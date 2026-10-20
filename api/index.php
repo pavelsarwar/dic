@@ -113,7 +113,7 @@ if ($action==='save_settings' && $method==='POST') {
     if(!is_string($raw)||!filter_var($raw,FILTER_VALIDATE_URL)||strtolower((string)parse_url($raw,PHP_URL_SCHEME))!=='https')respond(['error'=>'Social media URL must use HTTPS'],400);
     $host=strtolower((string)parse_url($raw,PHP_URL_HOST));
     $allowedHosts=['social_facebook'=>['facebook.com','fb.com','fb.me'],'social_instagram'=>['instagram.com'],'social_youtube'=>['youtube.com','youtu.be']];
-    $valid=false;foreach($allowedHosts[$field] as $domain){if($host===$domain||str_ends_with($host,'.'.$domain)){$valid=true;break;}}
+    $valid=false;foreach($allowedHosts[$field] as $domain){if($host===$domain||substr($host,-strlen('.'.$domain))==='.'. $domain){$valid=true;break;}}
     if(!$valid)respond(['error'=>'Please use the matching official social platform URL'],400);
    }
    if($field==='admission_button_url' && $raw!=='' && (!is_string($raw)||!filter_var($raw,FILTER_VALIDATE_URL)||parse_url($raw,PHP_URL_SCHEME)!=='https'))respond(['error'=>'Online Admission URL must be HTTPS'],400);
