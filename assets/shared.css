@@ -395,3 +395,29 @@ body[data-page=news] .dic-news-photo-grid .dic-gallery-photo img{width:100%;heig
 .dic-facebook-footer-inner .dic-facebook-page-button{display:inline-flex;background:#1877f2;color:#fff!important;text-decoration:none;font-size:14px;font-weight:700;padding:11px 16px;border-radius:10px}
 @media(max-width:900px){#news .dic-news-social-grid{grid-template-columns:1fr}#news .dic-youtube-video{min-height:240px;aspect-ratio:16/9}}
 @media(max-width:560px){.dic-facebook-footer-section{padding:32px 14px}.dic-facebook-footer-inner{padding:18px}.dic-facebook-footer-inner .dic-column-heading h3{font-size:19px}.dic-facebook-footer-inner .dic-facebook-page-card{padding:18px;gap:12px}.dic-facebook-footer-inner .dic-facebook-page-emblem{flex-basis:50px;width:50px;height:50px;font-size:42px}}
+
+/* Premium compact homepage statistics and social follow strip */
+#collegeStats[hidden],#collegeStats .dic-stat[hidden]{display:none!important}
+#collegeStats.dic-stats-section{background:#eef5e8;padding:44px 0 28px;color:#164d33}
+#collegeStats .dic-stats-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+#collegeStats .dic-stat{flex:1 1 205px;max-width:320px;min-width:0;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;min-height:148px;padding:26px 20px;text-align:center;background:#fff;border:1px solid #dce9dd;border-radius:18px;box-shadow:0 8px 26px #174b3110;transition:transform .2s,box-shadow .2s}
+#collegeStats .dic-stat::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:58px;height:4px;background:#2b8757;border-radius:0 0 6px 6px}
+#collegeStats .dic-stat:hover{transform:translateY(-3px);box-shadow:0 15px 30px #174b3118}
+#collegeStats .dic-stat>span{color:#587064;font-size:15px;font-weight:600;margin:0 0 9px}
+#collegeStats .dic-stat strong{color:#165639;font-size:clamp(31px,3.2vw,44px);font-weight:800;line-height:1.15}
+#collegeStats .dic-stat em{color:#288154;font-size:.68em}
+.dic-facebook-footer-section{background:#eef5e8;padding:26px 20px 56px}
+.dic-facebook-footer-inner{max-width:1080px;margin:auto;background:#fff;border:1px solid #dce9dd;border-radius:20px;padding:22px 26px;box-shadow:0 12px 32px #174b3110;display:flex;align-items:center;gap:30px;justify-content:space-between}
+.dic-facebook-footer-inner>.dic-column-heading{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;flex:0 1 330px;margin:0}
+.dic-facebook-footer-inner>.dic-column-heading h3{font-size:clamp(19px,2vw,24px);line-height:1.35;color:#164d33;margin:0}
+.dic-facebook-footer-inner>.dic-column-heading a{font-size:13px;color:#2d7852;font-weight:600;text-decoration:none}
+.dic-facebook-footer-inner .dic-facebook-feed{display:block;flex:1 1 460px;min-width:0;min-height:0;border:0;background:none;padding:0}
+.dic-facebook-footer-inner .dic-facebook-page-card{display:flex;align-items:center;justify-content:flex-end;gap:16px;background:transparent;border:0;border-radius:0;padding:0;min-height:0;text-align:left}
+.dic-facebook-footer-inner .dic-facebook-page-emblem{flex:0 0 52px;width:52px;height:52px;border-radius:14px;background:#1877f2;color:white;display:grid;place-items:center;font:bold 45px/1 Arial,sans-serif;padding-top:8px;box-shadow:0 5px 13px #1877f22a}
+.dic-facebook-footer-inner .dic-facebook-page-info{display:flex;align-items:center;justify-content:space-between;gap:22px;flex:1;min-width:0}
+.dic-facebook-footer-inner .dic-facebook-page-info h4{font-size:17px;line-height:1.4;color:#164d33;margin:0 0 3px}
+.dic-facebook-footer-inner .dic-facebook-page-info p{font-size:13px;line-height:1.45;color:#64796d;margin:0}
+.dic-facebook-footer-inner .dic-facebook-page-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;padding:12px 16px;border-radius:11px;background:#1877f2;color:#fff!important;text-decoration:none;font-size:14px;font-weight:700;white-space:nowrap;transition:background .2s,transform .2s}
+.dic-facebook-footer-inner .dic-facebook-page-button:hover{background:#1264ce;transform:translateY(-2px)}
+@media(max-width:900px){.dic-facebook-footer-inner{flex-direction:column;text-align:center;gap:20px;padding:26px 20px}.dic-facebook-footer-inner>.dic-column-heading{flex:initial;align-items:center}.dic-facebook-footer-inner .dic-facebook-feed{flex:initial;width:100%}.dic-facebook-footer-inner .dic-facebook-page-card{justify-content:center}.dic-facebook-footer-inner .dic-facebook-page-info{flex:initial}}
+@media(max-width:600px){#collegeStats.dic-stats-section{padding:28px 0 12px}#collegeStats .dic-stats-grid{gap:10px}#collegeStats .dic-stat{flex:1 1 calc(50% - 10px);min-height:120px;padding:19px 10px;border-radius:13px}#collegeStats .dic-stat>span{font-size:13px}#collegeStats .dic-stat strong{font-size:29px}.dic-facebook-footer-section{padding:20px 14px 35px}.dic-facebook-footer-inner{padding:23px 16px}.dic-facebook-footer-inner .dic-facebook-page-card{flex-direction:column;text-align:center;gap:12px}.dic-facebook-footer-inner .dic-facebook-page-info{flex-direction:column;gap:13px}.dic-facebook-footer-inner .dic-facebook-page-info h4{font-size:17px}}
