@@ -373,3 +373,25 @@ body[data-page=news] .dic-news-photo-grid .dic-gallery-photo img{width:100%;heig
 #news .dic-news-column{align-self:start}
 #news .dic-news-slide:focus-visible,#news .dic-news-side-arrow:focus-visible{outline:3px solid #e6b64b;outline-offset:2px}
 @media(max-width:650px){#news .dic-news-slide-controls{padding:0 6px}#news .dic-news-slide-controls .dic-news-side-arrow{width:34px;height:40px;font-size:27px}}
+
+/* News and YouTube two-column alignment; centered Facebook pre-footer */
+#news .dic-news-social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+#news .dic-news-column{display:flex;flex-direction:column;min-width:0;align-self:stretch}
+#news .dic-media-column{display:flex;flex-direction:column;min-width:0}
+#news .dic-media-column>.dic-youtube-column{display:flex;flex-direction:column;flex:1;min-width:0;padding:24px;border-radius:16px}
+#news .dic-media-column .dic-column-heading,#news .dic-news-column .dic-column-heading{min-height:42px;align-items:center}
+#news .dic-youtube-video{flex:1;min-height:260px;aspect-ratio:4/3}
+#news .dic-youtube-video iframe{height:100%;width:100%;aspect-ratio:auto}
+.dic-facebook-footer-section{padding:52px 18px;background:#eef5e8}
+.dic-facebook-footer-inner{max-width:630px;margin:0 auto;background:#fff;border:1px solid #dce8d7;border-radius:18px;box-shadow:0 10px 32px #204b3210;padding:28px}
+.dic-facebook-footer-inner .dic-column-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.dic-facebook-footer-inner .dic-column-heading h3{font-size:23px;color:#174b31;margin:0}
+.dic-facebook-footer-inner .dic-column-heading a{color:#1f6b42;text-decoration:none;font-weight:700;white-space:nowrap}
+.dic-facebook-footer-inner .dic-facebook-feed{display:block;min-height:0;padding:0;border:0;background:transparent}
+.dic-facebook-footer-inner .dic-facebook-page-card{display:flex;align-items:center;justify-content:center;gap:20px;text-align:left;min-height:0;background:#f1f6ff;border:1px solid #dce7f7;border-radius:14px;padding:25px}
+.dic-facebook-footer-inner .dic-facebook-page-emblem{flex:0 0 62px;width:62px;height:62px;border-radius:15px;font-size:51px;padding-top:9px}
+.dic-facebook-footer-inner .dic-facebook-page-info h4{font-size:21px;color:#174b31;margin:0 0 5px}
+.dic-facebook-footer-inner .dic-facebook-page-info p{font-size:14px;color:#52685d;margin:0 0 14px}
+.dic-facebook-footer-inner .dic-facebook-page-button{display:inline-flex;background:#1877f2;color:#fff!important;text-decoration:none;font-size:14px;font-weight:700;padding:11px 16px;border-radius:10px}
+@media(max-width:900px){#news .dic-news-social-grid{grid-template-columns:1fr}#news .dic-youtube-video{min-height:240px;aspect-ratio:16/9}}
+@media(max-width:560px){.dic-facebook-footer-section{padding:32px 14px}.dic-facebook-footer-inner{padding:18px}.dic-facebook-footer-inner .dic-column-heading h3{font-size:19px}.dic-facebook-footer-inner .dic-facebook-page-card{padding:18px;gap:12px}.dic-facebook-footer-inner .dic-facebook-page-emblem{flex-basis:50px;width:50px;height:50px;font-size:42px}}
