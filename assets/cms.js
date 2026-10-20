@@ -67,19 +67,21 @@
       const dots=document.createElement('div');dots.className='dic-news-slide-dots';
       let current=0;
       photos.forEach((n,i)=>{
-       const slide=document.createElement('a');slide.className='dic-news-slide';slide.href='/news';slide.hidden=i!==0;
+       const slide=document.createElement('button');slide.type='button';slide.className='dic-news-slide';slide.hidden=i!==0;
+       slide.dataset.lightboxSrc=safeUrl(n.image_url);
+       slide.setAttribute('aria-label','ছবি বড় করে দেখুন');
        const img=document.createElement('img');img.src=safeUrl(n.image_url);img.alt=n.title||'কলেজ সংবাদ';img.loading=i===0?'eager':'lazy';
-       const caption=document.createElement('span');caption.className='dic-news-slide-caption';caption.textContent=n.title||'কলেজ সংবাদ';
-       slide.append(img,caption);viewport.append(slide);
+       slide.append(img);viewport.append(slide);
        const dot=document.createElement('button');dot.type='button';dot.className='dic-news-slide-dot';dot.setAttribute('aria-label','ছবি '+(i+1));dot.setAttribute('aria-current',i===0?'true':'false');dots.append(dot);
        dot.onclick=()=>show(i);
       });
+      if(window.DICLightbox)window.DICLightbox.init(viewport);
       const slidesEls=Array.from(viewport.children),dotEls=Array.from(dots.children);
       function show(i){current=(i+photos.length)%photos.length;slidesEls.forEach((el,j)=>el.hidden=j!==current);dotEls.forEach((el,j)=>el.setAttribute('aria-current',j===current?'true':'false'))}
       const controls=document.createElement('div');controls.className='dic-news-slide-controls';
-      const prev=document.createElement('button');prev.type='button';prev.textContent='‹';prev.setAttribute('aria-label','আগের ছবি');prev.onclick=()=>show(current-1);
-      const next=document.createElement('button');next.type='button';next.textContent='›';next.setAttribute('aria-label','পরের ছবি');next.onclick=()=>show(current+1);
-      if(photos.length>1){controls.append(prev,dots,next);cards.addEventListener('mouseenter',()=>clearInterval(timer));cards.addEventListener('mouseleave',startTimer)}
+      const prev=document.createElement('button');prev.type='button';prev.className='dic-news-side-arrow dic-news-prev';prev.textContent='‹';prev.setAttribute('aria-label','আগের ছবি');prev.onclick=()=>show(current-1);
+      const next=document.createElement('button');next.type='button';next.className='dic-news-side-arrow dic-news-next';next.textContent='›';next.setAttribute('aria-label','পরের ছবি');next.onclick=()=>show(current+1);
+      if(photos.length>1){controls.append(prev,next);cards.addEventListener('mouseenter',()=>clearInterval(timer));cards.addEventListener('mouseleave',startTimer)}
       cards.append(viewport,controls);
       let timer;function startTimer(){if(photos.length>1){clearInterval(timer);timer=setInterval(()=>{if(!document.hidden)show(current+1)},4500)}}
       if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)startTimer();
