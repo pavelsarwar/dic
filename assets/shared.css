@@ -308,3 +308,13 @@ main p,.section p,.cms-footer p{line-height:1.65}
 #news .dic-facebook-post-content p{padding:0;margin:0 0 10px;color:#304d3b;font-size:14px;line-height:1.6;white-space:pre-line}
 #news .dic-facebook-post-content a,#news .dic-facebook-view-all{font-size:14px;color:#19683e;font-weight:700;text-decoration:none}
 #news .dic-facebook-view-all{display:block;text-align:center;background:#eef5e8;padding:13px;border-radius:10px}
+
+/* Official Facebook page card (no embed or API token required) */
+#news .dic-facebook-feed{display:flex;align-items:stretch;justify-content:stretch;flex:1;min-height:330px;background:transparent;border:0;padding:0}
+#news .dic-facebook-page-card{width:100%;min-height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:15px;padding:36px 28px;border-radius:16px;background:linear-gradient(145deg,#f3f8ff 0%,#eef5e8 100%);border:1px solid #dce7ed}
+#news .dic-facebook-page-emblem{display:grid;place-items:center;width:68px;height:68px;border-radius:19px;background:#1877f2;color:white;font:bold 57px/1 Arial,sans-serif;padding-top:11px;box-shadow:0 8px 18px #1877f229}
+#news .dic-facebook-page-card h4{font-size:24px;line-height:1.4;color:#174b31;margin:0}
+#news .dic-facebook-page-card p{max-width:370px;color:#52685d;font-size:15px;line-height:1.8;margin:0;padding:0}
+#news .dic-facebook-page-button{display:inline-flex;align-items:center;justify-content:center;background:#1877f2;color:#fff!important;font-size:15px;font-weight:700;text-decoration:none;padding:13px 20px;border-radius:10px;transition:background .2s}
+#news .dic-facebook-page-button:hover{background:#0d5fc8}
+@media(max-width:600px){#news .dic-facebook-page-card{padding:30px 18px;min-height:300px}#news .dic-facebook-page-card h4{font-size:21px}}
