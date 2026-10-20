@@ -34,6 +34,38 @@ if ($action==='public' && $method==='GET') {
  $q=$db->prepare('SELECT id,type,title,slug,body,image_url,subject,designation,department,attachment_url,sort_order,created_at FROM content WHERE type=? AND published=1 ORDER BY sort_order ASC,created_at DESC LIMIT 200');
  $q->execute([$type]);respond(['items'=>$q->fetchAll()]);
 }
+if ($action==='facebook_posts' && $method==='GET') {
+ $token=isset($config['facebook_page_access_token'])&&is_string($config['facebook_page_access_token'])?trim($config['facebook_page_access_token']):'';
+ $pageId=isset($config['facebook_page_id'])&&is_string($config['facebook_page_id'])?trim($config['facebook_page_id']):'';
+ if ($token===''||!preg_match('/^[0-9]+$/',$pageId)) respond(['items'=>[],'status'=>'not_configured']);
+ $cacheFile=sys_get_temp_dir().'/dic_fb_'.hash('sha256',$pageId).'.json';
+ if(is_readable($cacheFile)&&time()-filemtime($cacheFile)<900){
+  $cached=json_decode((string)file_get_contents($cacheFile),true);
+  if(is_array($cached))respond(['items'=>$cached,'status'=>'ok']);
+ }
+ if(!function_exists('curl_init'))respond(['items'=>[],'status'=>'unavailable']);
+ $url='https://graph.facebook.com/v24.0/'.rawurlencode($pageId).'/posts?fields=id,message,created_time,permalink_url,full_picture&limit=5';
+ $ch=curl_init($url);
+ curl_setopt_array($ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>10,CURLOPT_HTTPHEADER=>['Authorization: Bearer '.$token],CURLOPT_FOLLOWLOCATION=>false]);
+ $response=curl_exec($ch);$http=(int)curl_getinfo($ch,CURLINFO_HTTP_CODE);curl_close($ch);
+ $decoded=is_string($response)?json_decode($response,true):null;
+ if($http!==200||!is_array($decoded)||!isset($decoded['data'])||!is_array($decoded['data'])){
+  error_log('DIC Facebook Graph API request failed with HTTP '.$http);
+  if(is_readable($cacheFile)){ $cached=json_decode((string)file_get_contents($cacheFile),true);if(is_array($cached))respond(['items'=>$cached,'status'=>'cached']);}
+  respond(['items'=>[],'status'=>'unavailable']);
+ }
+ $items=[];
+ foreach($decoded['data'] as $post){
+  if(!is_array($post)||empty($post['id']))continue;
+  $permalink=(string)($post['permalink_url']??'');
+  if(!preg_match('~^https://(?:[a-z0-9-]+\\.)*facebook\\.com/~i',$permalink))$permalink='';
+  $picture=(string)($post['full_picture']??'');
+  if(!filter_var($picture,FILTER_VALIDATE_URL)||parse_url($picture,PHP_URL_SCHEME)!=='https')$picture='';
+  $items[]=['message'=>mb_substr((string)($post['message']??''),0,1000),'created_time'=>(string)($post['created_time']??''),'permalink_url'=>$permalink,'picture'=>$picture];
+ }
+ @file_put_contents($cacheFile,json_encode($items,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),LOCK_EX);
+ respond(['items'=>$items,'status'=>'ok']);
+}
 if ($action==='settings' && $method==='GET') {
  $q=$db->query('SELECT setting_key,value_json FROM site_settings');
  $settings=[];foreach($q as $r){$settings[$r['setting_key']]=json_decode($r['value_json'],true);}
